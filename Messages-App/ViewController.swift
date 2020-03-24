@@ -13,8 +13,27 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        view.backgroundColor = UIColor.gray
     }
-
-
 }
 
+//Добавляем реализацию отображения нашего View через Canvas (alt+cmd+P, refresh combination)
+import SwiftUI
+
+struct ViewControllerProvider: PreviewProvider {
+    static var previews: some View {
+        //добавляем к нашему контейнеру метод игнорирования SafeArea, для адекватного, красивого, отображения
+        ContainerView().edgesIgnoringSafeArea(.all)
+    }
+
+    struct ContainerView: UIViewControllerRepresentable {
+        let viewController = ViewController()
+        // swiftlint:disable line_length
+        func makeUIViewController(context: UIViewControllerRepresentableContext<ViewControllerProvider.ContainerView>) -> ViewController {
+            return viewController
+        }
+        func updateUIViewController(_ uiViewController: ViewController, context: UIViewControllerRepresentableContext<ViewControllerProvider.ContainerView>) {
+        }
+        // swiftlint:enable line_lenght
+    }
+}
