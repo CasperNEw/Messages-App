@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		AE7E7A7FA0346278D457DE75 /* Pods_Messages_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 523D3468FE9230A91CD7C8F9 /* Pods_Messages_App.framework */; };
+		DA25C818242B01870005AB3C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA25C817242B01870005AB3C /* LoginViewController.swift */; };
+		DA25C81A242B09CC0005AB3C /* SetupProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA25C819242B09CC0005AB3C /* SetupProfileViewController.swift */; };
+		DA25C81C242B10A20005AB3C /* AddPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA25C81B242B10A20005AB3C /* AddPhotoView.swift */; };
+		DA25C81E242B18D70005AB3C /* UISegmentedControl+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA25C81D242B18D70005AB3C /* UISegmentedControl+.swift */; };
 		DA48D6682429F8F2001BA1CF /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA48D6672429F8F2001BA1CF /* UIButton+.swift */; };
 		DA48D66A2429FB54001BA1CF /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA48D6692429FB54001BA1CF /* UIFont+.swift */; };
 		DA48D66C2429FC68001BA1CF /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA48D66B2429FC68001BA1CF /* UIColor+.swift */; };
@@ -28,6 +32,10 @@
 		4D0AC753357345D5C9E13435 /* Pods-Messages-App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Messages-App.release.xcconfig"; path = "Target Support Files/Pods-Messages-App/Pods-Messages-App.release.xcconfig"; sourceTree = "<group>"; };
 		523D3468FE9230A91CD7C8F9 /* Pods_Messages_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Messages_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDDD23D440CE6886346F6477 /* Pods-Messages-App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Messages-App.debug.xcconfig"; path = "Target Support Files/Pods-Messages-App/Pods-Messages-App.debug.xcconfig"; sourceTree = "<group>"; };
+		DA25C817242B01870005AB3C /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		DA25C819242B09CC0005AB3C /* SetupProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupProfileViewController.swift; sourceTree = "<group>"; };
+		DA25C81B242B10A20005AB3C /* AddPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoView.swift; sourceTree = "<group>"; };
+		DA25C81D242B18D70005AB3C /* UISegmentedControl+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISegmentedControl+.swift"; sourceTree = "<group>"; };
 		DA48D6672429F8F2001BA1CF /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		DA48D6692429FB54001BA1CF /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		DA48D66B2429FC68001BA1CF /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
@@ -71,6 +79,7 @@
 			children = (
 				DA8947D9242A0E4B004240AD /* ButtonFormView.swift */,
 				DADC3DB8242A3FC500BC304E /* OneLineTextField.swift */,
+				DA25C81B242B10A20005AB3C /* AddPhotoView.swift */,
 				DA8947DD242A12DA004240AD /* UIKit */,
 			);
 			path = Extensions;
@@ -81,6 +90,8 @@
 			children = (
 				DAE6445D2429D1810001467C /* AuthViewController.swift */,
 				DADC3DB6242A3BFB00BC304E /* SignUpViewController.swift */,
+				DA25C817242B01870005AB3C /* LoginViewController.swift */,
+				DA25C819242B09CC0005AB3C /* SetupProfileViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -94,6 +105,7 @@
 				DA48D66D242A014A001BA1CF /* UILabel+.swift */,
 				DA48D66F242A01F8001BA1CF /* UIImageView+.swift */,
 				DA8947DB242A1253004240AD /* UIStackView+.swift */,
+				DA25C81D242B18D70005AB3C /* UISegmentedControl+.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -257,13 +269,17 @@
 				DADC3DB7242A3BFB00BC304E /* SignUpViewController.swift in Sources */,
 				DA48D670242A01F8001BA1CF /* UIImageView+.swift in Sources */,
 				DAE6445E2429D1810001467C /* AuthViewController.swift in Sources */,
+				DA25C81A242B09CC0005AB3C /* SetupProfileViewController.swift in Sources */,
 				DAE6445A2429D1810001467C /* AppDelegate.swift in Sources */,
 				DA48D66A2429FB54001BA1CF /* UIFont+.swift in Sources */,
+				DA25C81C242B10A20005AB3C /* AddPhotoView.swift in Sources */,
 				DAE6445C2429D1810001467C /* SceneDelegate.swift in Sources */,
 				DA8947DC242A1253004240AD /* UIStackView+.swift in Sources */,
+				DA25C81E242B18D70005AB3C /* UISegmentedControl+.swift in Sources */,
 				DA48D66E242A014A001BA1CF /* UILabel+.swift in Sources */,
 				DA8947DA242A0E4B004240AD /* ButtonFormView.swift in Sources */,
 				DA48D6682429F8F2001BA1CF /* UIButton+.swift in Sources */,
+				DA25C818242B01870005AB3C /* LoginViewController.swift in Sources */,
 				DA48D66C2429FC68001BA1CF /* UIColor+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

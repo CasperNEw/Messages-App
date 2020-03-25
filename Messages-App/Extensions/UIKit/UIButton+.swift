@@ -39,4 +39,15 @@ extension UIButton {
         self.setTitleColor(titleColor, for: .normal)
         self.titleLabel?.font = font
     }
+
+    func addLogo(image: UIImage, leading: CGFloat) {
+        let logo = UIImageView(image: image, contentMode: .scaleAspectFit)
+        logo.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(logo)
+
+        NSLayoutConstraint.activate([
+            logo.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: leading),
+            logo.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+        ])
+    }
 }
