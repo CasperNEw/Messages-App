@@ -12,6 +12,9 @@
 		DA25C81A242B09CC0005AB3C /* SetupProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA25C819242B09CC0005AB3C /* SetupProfileViewController.swift */; };
 		DA25C81C242B10A20005AB3C /* AddPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA25C81B242B10A20005AB3C /* AddPhotoView.swift */; };
 		DA25C81E242B18D70005AB3C /* UISegmentedControl+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA25C81D242B18D70005AB3C /* UISegmentedControl+.swift */; };
+		DA25C821242BA7D30005AB3C /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA25C820242BA7D30005AB3C /* ListViewController.swift */; };
+		DA25C823242BA8ED0005AB3C /* PeopleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA25C822242BA8ED0005AB3C /* PeopleViewController.swift */; };
+		DA25C825242BA91C0005AB3C /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA25C824242BA91C0005AB3C /* MainTabBarController.swift */; };
 		DA48D6682429F8F2001BA1CF /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA48D6672429F8F2001BA1CF /* UIButton+.swift */; };
 		DA48D66A2429FB54001BA1CF /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA48D6692429FB54001BA1CF /* UIFont+.swift */; };
 		DA48D66C2429FC68001BA1CF /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA48D66B2429FC68001BA1CF /* UIColor+.swift */; };
@@ -19,6 +22,10 @@
 		DA48D670242A01F8001BA1CF /* UIImageView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA48D66F242A01F8001BA1CF /* UIImageView+.swift */; };
 		DA8947DA242A0E4B004240AD /* ButtonFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8947D9242A0E4B004240AD /* ButtonFormView.swift */; };
 		DA8947DC242A1253004240AD /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8947DB242A1253004240AD /* UIStackView+.swift */; };
+		DADA4881242CADC000E01F05 /* activeChats.json in Resources */ = {isa = PBXBuildFile; fileRef = DADA487F242CADBF00E01F05 /* activeChats.json */; };
+		DADA4882242CADC000E01F05 /* waitingChats.json in Resources */ = {isa = PBXBuildFile; fileRef = DADA4880242CADC000E01F05 /* waitingChats.json */; };
+		DADA4884242CADCB00E01F05 /* Bundle-Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADA4883242CADCB00E01F05 /* Bundle-Decodable.swift */; };
+		DADA4888242CE08100E01F05 /* ActiveChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADA4887242CE08000E01F05 /* ActiveChatCell.swift */; };
 		DADC3DB7242A3BFB00BC304E /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADC3DB6242A3BFB00BC304E /* SignUpViewController.swift */; };
 		DADC3DB9242A3FC500BC304E /* OneLineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADC3DB8242A3FC500BC304E /* OneLineTextField.swift */; };
 		DAE6445A2429D1810001467C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE644592429D1810001467C /* AppDelegate.swift */; };
@@ -36,6 +43,9 @@
 		DA25C819242B09CC0005AB3C /* SetupProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupProfileViewController.swift; sourceTree = "<group>"; };
 		DA25C81B242B10A20005AB3C /* AddPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoView.swift; sourceTree = "<group>"; };
 		DA25C81D242B18D70005AB3C /* UISegmentedControl+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISegmentedControl+.swift"; sourceTree = "<group>"; };
+		DA25C820242BA7D30005AB3C /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		DA25C822242BA8ED0005AB3C /* PeopleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleViewController.swift; sourceTree = "<group>"; };
+		DA25C824242BA91C0005AB3C /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		DA48D6672429F8F2001BA1CF /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		DA48D6692429FB54001BA1CF /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		DA48D66B2429FC68001BA1CF /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
@@ -43,6 +53,10 @@
 		DA48D66F242A01F8001BA1CF /* UIImageView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+.swift"; sourceTree = "<group>"; };
 		DA8947D9242A0E4B004240AD /* ButtonFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonFormView.swift; sourceTree = "<group>"; };
 		DA8947DB242A1253004240AD /* UIStackView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+.swift"; sourceTree = "<group>"; };
+		DADA487F242CADBF00E01F05 /* activeChats.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = activeChats.json; sourceTree = "<group>"; };
+		DADA4880242CADC000E01F05 /* waitingChats.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = waitingChats.json; sourceTree = "<group>"; };
+		DADA4883242CADCB00E01F05 /* Bundle-Decodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bundle-Decodable.swift"; sourceTree = "<group>"; };
+		DADA4887242CE08000E01F05 /* ActiveChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveChatCell.swift; sourceTree = "<group>"; };
 		DADC3DB6242A3BFB00BC304E /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		DADC3DB8242A3FC500BC304E /* OneLineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneLineTextField.swift; sourceTree = "<group>"; };
 		DAE644562429D1810001467C /* Messages-App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Messages-App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -74,9 +88,21 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		DA25C81F242BA7B50005AB3C /* SignIn&Auth */ = {
+			isa = PBXGroup;
+			children = (
+				DAE6445D2429D1810001467C /* AuthViewController.swift */,
+				DADC3DB6242A3BFB00BC304E /* SignUpViewController.swift */,
+				DA25C817242B01870005AB3C /* LoginViewController.swift */,
+				DA25C819242B09CC0005AB3C /* SetupProfileViewController.swift */,
+			);
+			path = "SignIn&Auth";
+			sourceTree = "<group>";
+		};
 		DA48D6652429F8D4001BA1CF /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				DADA4883242CADCB00E01F05 /* Bundle-Decodable.swift */,
 				DA8947D9242A0E4B004240AD /* ButtonFormView.swift */,
 				DADC3DB8242A3FC500BC304E /* OneLineTextField.swift */,
 				DA25C81B242B10A20005AB3C /* AddPhotoView.swift */,
@@ -88,10 +114,8 @@
 		DA48D6662429F8DD001BA1CF /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				DAE6445D2429D1810001467C /* AuthViewController.swift */,
-				DADC3DB6242A3BFB00BC304E /* SignUpViewController.swift */,
-				DA25C817242B01870005AB3C /* LoginViewController.swift */,
-				DA25C819242B09CC0005AB3C /* SetupProfileViewController.swift */,
+				DADA4885242CDFF200E01F05 /* MainTabBar */,
+				DA25C81F242BA7B50005AB3C /* SignIn&Auth */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -99,6 +123,8 @@
 		DA8947DD242A12DA004240AD /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				DADA487F242CADBF00E01F05 /* activeChats.json */,
+				DADA4880242CADC000E01F05 /* waitingChats.json */,
 				DA48D6672429F8F2001BA1CF /* UIButton+.swift */,
 				DA48D6692429FB54001BA1CF /* UIFont+.swift */,
 				DA48D66B2429FC68001BA1CF /* UIColor+.swift */,
@@ -108,6 +134,25 @@
 				DA25C81D242B18D70005AB3C /* UISegmentedControl+.swift */,
 			);
 			path = UIKit;
+			sourceTree = "<group>";
+		};
+		DADA4885242CDFF200E01F05 /* MainTabBar */ = {
+			isa = PBXGroup;
+			children = (
+				DADA4886242CE06500E01F05 /* Cell */,
+				DA25C824242BA91C0005AB3C /* MainTabBarController.swift */,
+				DA25C820242BA7D30005AB3C /* ListViewController.swift */,
+				DA25C822242BA8ED0005AB3C /* PeopleViewController.swift */,
+			);
+			path = MainTabBar;
+			sourceTree = "<group>";
+		};
+		DADA4886242CE06500E01F05 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				DADA4887242CE08000E01F05 /* ActiveChatCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		DAE6444D2429D1810001467C = {
@@ -212,7 +257,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				DAE644662429D1830001467C /* LaunchScreen.storyboard in Resources */,
+				DADA4881242CADC000E01F05 /* activeChats.json in Resources */,
 				DAE644632429D1830001467C /* Assets.xcassets in Resources */,
+				DADA4882242CADC000E01F05 /* waitingChats.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,17 +312,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA25C821242BA7D30005AB3C /* ListViewController.swift in Sources */,
 				DADC3DB9242A3FC500BC304E /* OneLineTextField.swift in Sources */,
 				DADC3DB7242A3BFB00BC304E /* SignUpViewController.swift in Sources */,
 				DA48D670242A01F8001BA1CF /* UIImageView+.swift in Sources */,
+				DADA4888242CE08100E01F05 /* ActiveChatCell.swift in Sources */,
 				DAE6445E2429D1810001467C /* AuthViewController.swift in Sources */,
+				DA25C823242BA8ED0005AB3C /* PeopleViewController.swift in Sources */,
 				DA25C81A242B09CC0005AB3C /* SetupProfileViewController.swift in Sources */,
+				DADA4884242CADCB00E01F05 /* Bundle-Decodable.swift in Sources */,
 				DAE6445A2429D1810001467C /* AppDelegate.swift in Sources */,
 				DA48D66A2429FB54001BA1CF /* UIFont+.swift in Sources */,
 				DA25C81C242B10A20005AB3C /* AddPhotoView.swift in Sources */,
 				DAE6445C2429D1810001467C /* SceneDelegate.swift in Sources */,
 				DA8947DC242A1253004240AD /* UIStackView+.swift in Sources */,
 				DA25C81E242B18D70005AB3C /* UISegmentedControl+.swift in Sources */,
+				DA25C825242BA91C0005AB3C /* MainTabBarController.swift in Sources */,
 				DA48D66E242A014A001BA1CF /* UILabel+.swift in Sources */,
 				DA8947DA242A0E4B004240AD /* ButtonFormView.swift in Sources */,
 				DA48D6682429F8F2001BA1CF /* UIButton+.swift in Sources */,
