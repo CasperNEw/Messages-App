@@ -7,10 +7,6 @@
 //
 
 import UIKit
-protocol SelfConfiguringCell {
-    static var reuseIdentifier: String { get }
-    func configure(with value: MChat)
-}
 
 class ActiveChatCell: UICollectionViewCell, SelfConfiguringCell {
 
@@ -19,11 +15,11 @@ class ActiveChatCell: UICollectionViewCell, SelfConfiguringCell {
     let friendName = UILabel(text: "Melven Sandro", font: .laoSangamMN20())
     let friendImageView = UIImageView()
     let lastMessage = UILabel(text: "Hello!", font: .laoSangamMN18())
-    let gradientView = UIView()
+    let gradientView = GradientView(fromPoint: .topTrailing, toPoint: .bottomLeading, startColor: #colorLiteral(red: 0.7882352941, green: 0.631372549, blue: 0.9411764706, alpha: 1), endColor: #colorLiteral(red: 0.4784313725, green: 0.6980392157, blue: 0.9215686275, alpha: 1))
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         self.layer.cornerRadius = 4
         self.clipsToBounds = true
         setupConstraints()

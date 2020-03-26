@@ -64,8 +64,7 @@ class ListViewController: UIViewController {
         view.addSubview(collectionView)
 
         collectionView.register(ActiveChatCell.self, forCellWithReuseIdentifier: ActiveChatCell.reuseIdentifier)
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cellid2")
-
+        collectionView.register(WaitingChatCell.self, forCellWithReuseIdentifier: WaitingChatCell.reuseIdentifier)
     }
 }
 
@@ -84,7 +83,7 @@ extension ListViewController {
 
     private func configureDataSource() {
         // swiftlint:disable line_length
-        dataSource = UICollectionViewDiffableDataSource<Section, MChat>(collectionView: collectionView, cellProvider: { (collectionView, indexPath, chat) -> UICollectionViewCell? in
+        dataSource = UICollectionViewDiffableDataSource<Section, MChat>(collectionView: collectionView, cellProvider: { (_ collectionView, indexPath, chat) -> UICollectionViewCell? in
             // swiftlint:enable line_lenght
             guard let section = Section(rawValue: indexPath.section) else {
                 print("[Error] Unknown section kind")
@@ -94,9 +93,7 @@ extension ListViewController {
             case .activeChats:
                 return self.configure(cellType: ActiveChatCell.self, with: chat, for: indexPath)
             case .waitingChats:
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellid2", for: indexPath)
-                cell.backgroundColor = #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1)
-                return cell
+                return self.configure(cellType: WaitingChatCell.self, with: chat, for: indexPath)
             }
         })
     }
