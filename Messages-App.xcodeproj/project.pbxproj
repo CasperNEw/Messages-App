@@ -25,6 +25,7 @@
 		DA90ACFA242D0BB1003E41B7 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90ACF9242D0BB1003E41B7 /* GradientView.swift */; };
 		DA90ACFD242D14B2003E41B7 /* SelfConfiguringCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90ACFC242D14B1003E41B7 /* SelfConfiguringCell.swift */; };
 		DA90ACFF242D14E4003E41B7 /* WaitingChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90ACFE242D14E4003E41B7 /* WaitingChatCell.swift */; };
+		DA90AD01242DA87F003E41B7 /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90AD00242DA87F003E41B7 /* SectionHeader.swift */; };
 		DADA4881242CADC000E01F05 /* activeChats.json in Resources */ = {isa = PBXBuildFile; fileRef = DADA487F242CADBF00E01F05 /* activeChats.json */; };
 		DADA4882242CADC000E01F05 /* waitingChats.json in Resources */ = {isa = PBXBuildFile; fileRef = DADA4880242CADC000E01F05 /* waitingChats.json */; };
 		DADA4884242CADCB00E01F05 /* Bundle-Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADA4883242CADCB00E01F05 /* Bundle-Decodable.swift */; };
@@ -59,6 +60,7 @@
 		DA90ACF9242D0BB1003E41B7 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		DA90ACFC242D14B1003E41B7 /* SelfConfiguringCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfConfiguringCell.swift; sourceTree = "<group>"; };
 		DA90ACFE242D14E4003E41B7 /* WaitingChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitingChatCell.swift; sourceTree = "<group>"; };
+		DA90AD00242DA87F003E41B7 /* SectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
 		DADA487F242CADBF00E01F05 /* activeChats.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = activeChats.json; sourceTree = "<group>"; };
 		DADA4880242CADC000E01F05 /* waitingChats.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = waitingChats.json; sourceTree = "<group>"; };
 		DADA4883242CADCB00E01F05 /* Bundle-Decodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bundle-Decodable.swift"; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 				DADC3DB8242A3FC500BC304E /* OneLineTextField.swift */,
 				DA25C81B242B10A20005AB3C /* AddPhotoView.swift */,
 				DA90ACF9242D0BB1003E41B7 /* GradientView.swift */,
+				DA90AD00242DA87F003E41B7 /* SectionHeader.swift */,
 				DA8947DD242A12DA004240AD /* UIKit */,
 			);
 			path = Extensions;
@@ -331,6 +334,7 @@
 			files = (
 				DA25C821242BA7D30005AB3C /* ListViewController.swift in Sources */,
 				DADC3DB9242A3FC500BC304E /* OneLineTextField.swift in Sources */,
+				DA90AD01242DA87F003E41B7 /* SectionHeader.swift in Sources */,
 				DA90ACFA242D0BB1003E41B7 /* GradientView.swift in Sources */,
 				DADC3DB7242A3BFB00BC304E /* SignUpViewController.swift in Sources */,
 				DA48D670242A01F8001BA1CF /* UIImageView+.swift in Sources */,
