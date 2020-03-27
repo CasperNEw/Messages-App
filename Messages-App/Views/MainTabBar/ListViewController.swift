@@ -8,22 +8,6 @@
 
 import UIKit
 
-// TODO: put in a separate file
-struct MChat: Hashable, Decodable {
-    var username: String
-    var userImageString: String
-    var lastMessage: String
-    var identifier: Int
-
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(identifier)
-    }
-
-    static func == (lhs: MChat, rhs: MChat) -> Bool {
-        return lhs.identifier == rhs.identifier
-    }
-}
-
 class ListViewController: UIViewController {
 
     enum Section: Int, CaseIterable {
@@ -75,22 +59,14 @@ class ListViewController: UIViewController {
         collectionView.register(ActiveChatCell.self, forCellWithReuseIdentifier: ActiveChatCell.reuseIdentifier)
         collectionView.register(WaitingChatCell.self, forCellWithReuseIdentifier: WaitingChatCell.reuseIdentifier)
 
-        collectionView.register(SectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SectionHeader.reuseIdentifier)
+        collectionView.register(SectionHeader.self,
+                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                withReuseIdentifier: SectionHeader.reuseIdentifier)
     }
 }
 
 // MARK: Configure Data Source
 extension ListViewController {
-
-    private func configure<T: SelfConfiguringCell>(cellType: T.Type, with value: MChat, for indexPath: IndexPath) -> T {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: T.reuseIdentifier,
-                                                            for: indexPath) as? T else {
-                                                                // TODO: q?
-                                                                fatalError("Unable to dequeue \(cellType)")
-        }
-        cell.configure(with: value)
-        return cell
-    }
 
     private func configureDataSource() {
         // swiftlint:disable line_length
@@ -102,9 +78,9 @@ extension ListViewController {
             }
             switch section {
             case .activeChats:
-                return self.configure(cellType: ActiveChatCell.self, with: chat, for: indexPath)
+                return self.configure(collectionView: collectionView, cellType: ActiveChatCell.self, with: chat, for: indexPath)
             case .waitingChats:
-                return self.configure(cellType: WaitingChatCell.self, with: chat, for: indexPath)
+                return self.configure(collectionView: collectionView, cellType: WaitingChatCell.self, with: chat, for: indexPath)
             }
         })
 
@@ -165,7 +141,7 @@ extension ListViewController {
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 8
         section.contentInsets = NSDirectionalEdgeInsets(top: 16, leading: 20, bottom: 0, trailing: 20)
-        
+
         let sectionHeader = createSectionHeader()
         section.boundarySupplementaryItems = [sectionHeader]
 
@@ -199,7 +175,6 @@ extension ListViewController {
         let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: sectionHeaderSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
         return sectionHeader
     }
-    
 }
 
 // MARK: UISearchBarDelegate

@@ -12,9 +12,9 @@ class ActiveChatCell: UICollectionViewCell, SelfConfiguringCell {
 
     static var reuseIdentifier: String = "ActiveChatCell"
 
-    let friendName = UILabel(text: "Melven Sandro", font: .laoSangamMN20())
+    let friendName = UILabel(text: "Username", font: .laoSangamMN20())
     let friendImageView = UIImageView()
-    let lastMessage = UILabel(text: "Hello!", font: .laoSangamMN18())
+    let lastMessage = UILabel(text: "last message", font: .laoSangamMN18())
     let gradientView = GradientView(fromPoint: .topTrailing, toPoint: .bottomLeading, startColor: #colorLiteral(red: 0.7882352941, green: 0.631372549, blue: 0.9411764706, alpha: 1), endColor: #colorLiteral(red: 0.4784313725, green: 0.6980392157, blue: 0.9215686275, alpha: 1))
 
     override init(frame: CGRect) {
@@ -29,11 +29,11 @@ class ActiveChatCell: UICollectionViewCell, SelfConfiguringCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configure(with value: MChat) {
-        friendName.text = value.username
-        lastMessage.text = value.lastMessage
-        friendImageView.image = UIImage(named: value.userImageString)
-
+    func configure<U>(with value: U) where U: Hashable {
+        guard let chat = value as? MChat else { return }
+        friendName.text = chat.username
+        lastMessage.text = chat.lastMessage
+        friendImageView.image = UIImage(named: chat.userImageString)
     }
 }
 
