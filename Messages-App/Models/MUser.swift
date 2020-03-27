@@ -21,4 +21,10 @@ struct MUser: Hashable, Decodable {
     static func == (lhs: MUser, rhs: MUser) -> Bool {
         return lhs.identifier == rhs.identifier
     }
+
+    func contains(filter: String?) -> Bool {
+        guard let filter = filter else { return true }
+        if filter.isEmpty { return true }
+        return username.lowercased().contains(filter.lowercased())
+    }
 }
