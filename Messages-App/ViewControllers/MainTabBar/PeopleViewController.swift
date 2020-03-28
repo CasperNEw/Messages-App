@@ -161,6 +161,8 @@ extension PeopleViewController {
 extension PeopleViewController: UISearchBarDelegate {
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        // TODO: upgrade this method for update section header, nearbly people count
+        //configureDataSourceTest(with: searchText)
         reloadData(with: searchText)
     }
 
