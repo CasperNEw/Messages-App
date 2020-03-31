@@ -15,7 +15,6 @@ extension UIViewController {
                                                         for indexPath: IndexPath) -> T {
          guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: T.reuseIdentifier,
                                                              for: indexPath) as? T else {
-                                                                 // TODO: q?
                                                                  fatalError("Unable to dequeue \(cellType)")
          }
          cell.configure(with: value)

@@ -32,13 +32,14 @@ class AuthViewController: UIViewController {
 extension AuthViewController {
 
     private func setupConstraints() {
-        logoImageView.translatesAutoresizingMaskIntoConstraints = false
 
         let googleView = ButtonFormView(label: googleLabel, button: googleButton)
         let emailView = ButtonFormView(label: emailLabel, button: emailButton)
         let loginView = ButtonFormView(label: loginLabel, button: loginButton)
 
         let stackView = UIStackView(arrangedSubviews: [googleView, emailView, loginView], axis: .vertical, spacing: 40)
+
+        logoImageView.translatesAutoresizingMaskIntoConstraints = false
         stackView.translatesAutoresizingMaskIntoConstraints = false
 
         view.addSubview(logoImageView)
@@ -56,12 +57,10 @@ extension AuthViewController {
 }
 
 // MARK: SwiftUI
-// Добавляем реализацию отображения нашего View через Canvas (alt+cmd+P, refresh combination)
 import SwiftUI
 
 struct AuthVCProvider: PreviewProvider {
     static var previews: some View {
-        // добавляем к нашему контейнеру метод игнорирования SafeArea, для адекватного, красивого, отображения
         ContainerView().edgesIgnoringSafeArea(.all)
     }
 
@@ -73,6 +72,6 @@ struct AuthVCProvider: PreviewProvider {
         }
         func updateUIViewController(_ uiViewController: AuthViewController, context: UIViewControllerRepresentableContext<AuthVCProvider.ContainerView>) {
         }
-        // swiftlint:enable line_lenght
+        // swiftlint:enable line_length
     }
 }

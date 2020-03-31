@@ -22,17 +22,57 @@ class PeopleViewController: UIViewController {
     }
 
     let users = Bundle.main.decode([MUser].self, from: "users.json")
-    var dataSource: UICollectionViewDiffableDataSource<Section, MUser>! = nil
-    var collectionView: UICollectionView! = nil
 
+    // MARK: Init Collection View
+    lazy var collectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
+        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        collectionView.backgroundColor = .mainWhite()
+        return collectionView
+    }()
+
+    // MARK: Init Data Source
+    // swiftlint:disable line_length
+    lazy var dataSource: UICollectionViewDiffableDataSource<Section, MUser> = {
+        let dataSource = UICollectionViewDiffableDataSource<Section, MUser>(collectionView: collectionView, cellProvider: { (_ collectionView, indexPath, _ user) -> UICollectionViewCell? in
+            guard let section = Section(rawValue: indexPath.section) else {
+                assertionFailure("[Error] Unknown section kind")
+                return UICollectionViewCell()
+            }
+            switch section {
+            case .users:
+                return self.configure(collectionView: collectionView, cellType: UserCell.self,
+                                      with: user, for: indexPath)
+            }
+        })
+
+        dataSource.supplementaryViewProvider = {
+            collectionView, kind, indexPath in
+            guard let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SectionHeader.reuseIdentifier, for: indexPath) as? SectionHeader else {
+                assertionFailure("[Error] Can not create new section header")
+                return nil
+            }
+
+            let items = self.dataSource.snapshot().itemIdentifiers(inSection: .users)
+            guard let section = Section(rawValue: indexPath.section) else {
+                assertionFailure("[Error] Unknown section kind")
+                return nil
+            }
+            sectionHeader.configure(text: section.description(usersCount: items.count), font: .systemFont(ofSize: 36, weight: .light), color: .label)
+
+            return sectionHeader
+        }
+        return dataSource
+    }()
+    // swiftlint:enable line_length
+
+    // MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupSearchBar()
         setupCollectionView()
-        configureDataSource()
-        reloadData(with: nil)
-
+        updateDataSource(with: nil)
     }
 
     private func setupSearchBar() {
@@ -47,11 +87,7 @@ class PeopleViewController: UIViewController {
     }
 
     private func setupCollectionView() {
-        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
-        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        collectionView.backgroundColor = .mainWhite()
         view.addSubview(collectionView)
-
         collectionView.register(UserCell.self, forCellWithReuseIdentifier: UserCell.reuseIdentifier)
         collectionView.register(SectionHeader.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
@@ -62,34 +98,7 @@ class PeopleViewController: UIViewController {
 // MARK: Configure Data Source
 extension PeopleViewController {
 
-    private func configureDataSource() {
-        // swiftlint:disable line_length
-        dataSource = UICollectionViewDiffableDataSource<Section, MUser>(collectionView: collectionView, cellProvider: { (_ collectionView, indexPath, _ user) -> UICollectionViewCell? in
-            // swiftlint:enable line_lenght
-            guard let section = Section(rawValue: indexPath.section) else {
-                print("[Error] Unknown section kind")
-                return UICollectionViewCell()
-            }
-            switch section {
-            case .users:
-                return self.configure(collectionView: collectionView, cellType: UserCell.self,
-                                      with: user, for: indexPath)
-            }
-        })
-
-        dataSource.supplementaryViewProvider = {
-            collectionView, kind, indexPath in
-            guard let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SectionHeader.reuseIdentifier, for: indexPath) as? SectionHeader else { fatalError("Can not create new section header")}
-
-            let items = self.dataSource.snapshot().itemIdentifiers(inSection: .users)
-            guard let section = Section(rawValue: indexPath.section) else { fatalError("Unknown section kind")}
-            sectionHeader.configure(text: section.description(usersCount: items.count), font: .systemFont(ofSize: 36, weight: .light), color: .label)
-
-            return sectionHeader
-        }
-    }
-
-    private func reloadData(with searchText: String?) {
+    private func updateDataSource(with searchText: String?) {
         let filtered = users.filter { (user) -> Bool in
             user.contains(filter: searchText)
         }
@@ -97,7 +106,7 @@ extension PeopleViewController {
         var snapshot = NSDiffableDataSourceSnapshot<Section, MUser>()
         snapshot.appendSections([.users])
         snapshot.appendItems(filtered, toSection: .users)
-        dataSource?.apply(snapshot, animatingDifferences: true)
+        dataSource.apply(snapshot, animatingDifferences: true)
     }
 }
 
@@ -161,13 +170,10 @@ extension PeopleViewController {
 extension PeopleViewController: UISearchBarDelegate {
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        // TODO: upgrade this method for update section header, nearbly people count
-        //configureDataSourceTest(with: searchText)
-        reloadData(with: searchText)
+        updateDataSource(with: searchText)
     }
-
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        reloadData(with: nil)
+        updateDataSource(with: nil)
     }
 }
 
@@ -187,6 +193,6 @@ struct PeopleVCProvider: PreviewProvider {
         }
         func updateUIViewController(_ uiViewController: PeopleVCProvider.ContainerView.UIViewControllerType, context: UIViewControllerRepresentableContext<PeopleVCProvider.ContainerView>) {
         }
-        // swiftlint:enable line_lenght
+        // swiftlint:enable line_length
     }
 }

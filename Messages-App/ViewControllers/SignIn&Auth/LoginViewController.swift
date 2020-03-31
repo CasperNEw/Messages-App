@@ -74,12 +74,10 @@ extension LoginViewController {
 }
 
 // MARK: SwiftUI
-// Добавляем реализацию отображения нашего View через Canvas (alt+cmd+P, refresh combination)
 import SwiftUI
 
 struct LoginVCProvider: PreviewProvider {
     static var previews: some View {
-        // добавляем к нашему контейнеру метод игнорирования SafeArea, для адекватного, красивого, отображения
         ContainerView().edgesIgnoringSafeArea(.all)
     }
 
@@ -91,6 +89,6 @@ struct LoginVCProvider: PreviewProvider {
         }
         func updateUIViewController(_ uiViewController: LoginViewController, context: UIViewControllerRepresentableContext<LoginVCProvider.ContainerView>) {
         }
-        // swiftlint:enable line_lenght
+        // swiftlint:enable line_length
     }
 }

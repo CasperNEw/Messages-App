@@ -7,7 +7,6 @@
 //
 
 import UIKit
-
 class ListViewController: UIViewController {
 
     enum Section: Int, CaseIterable {
@@ -23,20 +22,62 @@ class ListViewController: UIViewController {
         }
     }
 
-    // TODO: remove fake data and resourses
     let activeChats = Bundle.main.decode([MChat].self, from: "activeChats.json")
     let waitingChats = Bundle.main.decode([MChat].self, from: "waitingChats.json")
 
-    var dataSource: UICollectionViewDiffableDataSource<Section, MChat>! = nil
-    var collectionView: UICollectionView! = nil
+    // MARK: Init Collection View
+    lazy var collectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
+        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        collectionView.backgroundColor = .mainWhite()
+        return collectionView
+    }()
 
+    // MARK: Init Data Source
+    //swiftlint:disable line_length
+    lazy var dataSource: UICollectionViewDiffableDataSource<Section, MChat> = {
+        let dataSource = UICollectionViewDiffableDataSource<Section, MChat>(collectionView: collectionView, cellProvider: { (_ collectionView, indexPath, chat) -> UICollectionViewCell? in
+            guard let section = Section(rawValue: indexPath.section) else {
+                assertionFailure("[Error] Unknown section kind")
+                return UICollectionViewCell()
+            }
+            switch section {
+            case .activeChats:
+                return self.configure(collectionView: collectionView,
+                                      cellType: ActiveChatCell.self,
+                                      with: chat, for: indexPath)
+            case .waitingChats:
+                return self.configure(collectionView: collectionView,
+                                      cellType: WaitingChatCell.self,
+                                      with: chat, for: indexPath)
+            }
+        })
+        dataSource.supplementaryViewProvider = {
+            collectionView, kind, indexPath in
+            guard let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SectionHeader.reuseIdentifier, for: indexPath) as? SectionHeader else {
+                assertionFailure("[Error] Can not create new section header")
+                return nil
+            }
+
+            guard let section = Section(rawValue: indexPath.section) else {
+                assertionFailure("[Error] Unknown section kind")
+                return nil
+            }
+            sectionHeader.configure(text: section.description(), font: .laoSangamMN20(), color: #colorLiteral(red: 0.5725490196, green: 0.5725490196, blue: 0.5725490196, alpha: 1))
+
+            return sectionHeader
+        }
+        return dataSource
+    }()
+    //swiftlint:enable line_length
+
+    // MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupSearchBar()
         setupCollectionView()
-        configureDataSource()
-        reloadData()
+        updateDataSource(with: nil)
     }
 
     private func setupSearchBar() {
@@ -51,14 +92,9 @@ class ListViewController: UIViewController {
     }
 
     private func setupCollectionView() {
-        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
-        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        collectionView.backgroundColor = .mainWhite()
         view.addSubview(collectionView)
-
         collectionView.register(ActiveChatCell.self, forCellWithReuseIdentifier: ActiveChatCell.reuseIdentifier)
         collectionView.register(WaitingChatCell.self, forCellWithReuseIdentifier: WaitingChatCell.reuseIdentifier)
-
         collectionView.register(SectionHeader.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: SectionHeader.reuseIdentifier)
@@ -68,39 +104,19 @@ class ListViewController: UIViewController {
 // MARK: Configure Data Source
 extension ListViewController {
 
-    private func configureDataSource() {
-        // swiftlint:disable line_length
-        dataSource = UICollectionViewDiffableDataSource<Section, MChat>(collectionView: collectionView, cellProvider: { (_ collectionView, indexPath, chat) -> UICollectionViewCell? in
-            // swiftlint:enable line_lenght
-            guard let section = Section(rawValue: indexPath.section) else {
-                print("[Error] Unknown section kind")
-                return UICollectionViewCell()
-            }
-            switch section {
-            case .activeChats:
-                return self.configure(collectionView: collectionView, cellType: ActiveChatCell.self, with: chat, for: indexPath)
-            case .waitingChats:
-                return self.configure(collectionView: collectionView, cellType: WaitingChatCell.self, with: chat, for: indexPath)
-            }
-        })
-
-        dataSource.supplementaryViewProvider = {
-            collectionView, kind, indexPath in
-            guard let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SectionHeader.reuseIdentifier, for: indexPath) as? SectionHeader else { fatalError("Can not create new section header")}
-
-            guard let section = Section(rawValue: indexPath.section) else { fatalError("Unknown section kind")}
-            sectionHeader.configure(text: section.description(), font: .laoSangamMN20(), color: #colorLiteral(red: 0.5725490196, green: 0.5725490196, blue: 0.5725490196, alpha: 1))
-
-            return sectionHeader
+    private func updateDataSource(with searchText: String?) {
+        let filteredWaitingChats = waitingChats.filter { (chat) -> Bool in
+            chat.contains(filter: searchText)
         }
-    }
+        let filteredActiveChats = activeChats.filter { (chat) -> Bool in
+            chat.contains(filter: searchText)
+        }
 
-    private func reloadData() {
         var snapshot = NSDiffableDataSourceSnapshot<Section, MChat>()
         snapshot.appendSections([.waitingChats, .activeChats])
-        snapshot.appendItems(activeChats, toSection: .activeChats)
-        snapshot.appendItems(waitingChats, toSection: .waitingChats)
-        dataSource?.apply(snapshot, animatingDifferences: true)
+        snapshot.appendItems(filteredActiveChats, toSection: .activeChats)
+        snapshot.appendItems(filteredWaitingChats, toSection: .waitingChats)
+        dataSource.apply(snapshot, animatingDifferences: true)
     }
 }
 
@@ -156,7 +172,7 @@ extension ListViewController {
 
         let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(88), heightDimension: .absolute(88))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
-                                            subitems: [item])
+                                                       subitems: [item])
 
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .continuous
@@ -171,8 +187,11 @@ extension ListViewController {
 
     private func createSectionHeader() -> NSCollectionLayoutBoundarySupplementaryItem {
 
-        let sectionHeaderSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(1))
+        let sectionHeaderSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                                       heightDimension: .estimated(1))
+        // swiftlint:disable line_length
         let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: sectionHeaderSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+        // swiftlint:enable line_length
         return sectionHeader
     }
 }
@@ -180,7 +199,10 @@ extension ListViewController {
 // MARK: UISearchBarDelegate
 extension ListViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print(searchText)
+        updateDataSource(with: searchText)
+    }
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        updateDataSource(with: nil)
     }
 }
 
@@ -200,6 +222,6 @@ struct ListVCProvider: PreviewProvider {
         }
         func updateUIViewController(_ uiViewController: ListVCProvider.ContainerView.UIViewControllerType, context: UIViewControllerRepresentableContext<ListVCProvider.ContainerView>) {
         }
-        // swiftlint:enable line_lenght
+        // swiftlint:enable line_length
     }
 }

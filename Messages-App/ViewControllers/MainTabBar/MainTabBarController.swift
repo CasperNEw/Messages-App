@@ -21,15 +21,15 @@ class MainTabBarController: UITabBarController {
                                         withConfiguration: boldConfig),
             let convImage = UIImage(systemName: "bubble.left.and.bubble.right",
                                     withConfiguration: boldConfig) else { return }
-
-        viewControllers = [generateNavigationController(rootVC: peopleViewController,
-                                                        title: "People", image: peopleImage),
-                           generateNavigationController(rootVC: listVuewController,
-                                                        title: "Conversation", image: convImage)]
-//        viewControllers = [generateNavigationController(rootVC: listVuewController,
-//                                                        title: "Conversation", image: convImage),
-//                           generateNavigationController(rootVC: peopleViewController,
-//                                                        title: "People", image: peopleImage)]
+//
+//        viewControllers = [generateNavigationController(rootVC: peopleViewController,
+//                                                        title: "People", image: peopleImage),
+//                           generateNavigationController(rootVC: listVuewController,
+//                                                        title: "Conversation", image: convImage)]
+        viewControllers = [generateNavigationController(rootVC: listVuewController,
+                                                        title: "Conversation", image: convImage),
+                           generateNavigationController(rootVC: peopleViewController,
+                                                        title: "People", image: peopleImage)]
 
     }
 

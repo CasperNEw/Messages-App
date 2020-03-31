@@ -73,12 +73,10 @@ extension SignUpViewController {
 }
 
 // MARK: SwiftUI
-// Добавляем реализацию отображения нашего View через Canvas (alt+cmd+P, refresh combination)
 import SwiftUI
 
 struct SignUpVCProvider: PreviewProvider {
     static var previews: some View {
-        // добавляем к нашему контейнеру метод игнорирования SafeArea, для адекватного, красивого, отображения
         ContainerView().edgesIgnoringSafeArea(.all)
     }
 
@@ -90,6 +88,6 @@ struct SignUpVCProvider: PreviewProvider {
         }
         func updateUIViewController(_ uiViewController: SignUpViewController, context: UIViewControllerRepresentableContext<SignUpVCProvider.ContainerView>) {
         }
-        // swiftlint:enable line_lenght
+        // swiftlint:enable line_length
     }
 }

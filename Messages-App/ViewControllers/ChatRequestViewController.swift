@@ -42,6 +42,7 @@ extension ChatRequestViewController {
         containerView.layer.cornerRadius = 30
         containerView.backgroundColor = .mainWhite()
 
+        acceptButton.layer.masksToBounds = true
         denyButton.layer.borderColor = #colorLiteral(red: 0.8352941176, green: 0.2, blue: 0.2, alpha: 1)
         denyButton.layer.borderWidth = 1.2
 
@@ -107,6 +108,6 @@ struct ChatRequestVCProvider: PreviewProvider {
         }
         func updateUIViewController(_ uiViewController: ChatRequestViewController, context: UIViewControllerRepresentableContext<ChatRequestVCProvider.ContainerView>) {
         }
-        // swiftlint:enable line_lenght
+        // swiftlint:enable line_length
     }
 }

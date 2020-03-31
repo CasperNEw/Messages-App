@@ -69,12 +69,10 @@ extension SetupProfileViewController {
 }
 
 // MARK: SwiftUI
-// Добавляем реализацию отображения нашего View через Canvas (alt+cmd+P, refresh combination)
 import SwiftUI
 
 struct SetupProfileVCProvider: PreviewProvider {
     static var previews: some View {
-        // добавляем к нашему контейнеру метод игнорирования SafeArea, для адекватного, красивого, отображения
         ContainerView().edgesIgnoringSafeArea(.all)
     }
 
@@ -86,6 +84,6 @@ struct SetupProfileVCProvider: PreviewProvider {
         }
         func updateUIViewController(_ uiViewController: SetupProfileViewController, context: UIViewControllerRepresentableContext<SetupProfileVCProvider.ContainerView>) {
         }
-        // swiftlint:enable line_lenght
+        // swiftlint:enable line_length
     }
 }
