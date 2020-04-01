@@ -3,12 +3,15 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		AE7E7A7FA0346278D457DE75 /* Pods_Messages_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 523D3468FE9230A91CD7C8F9 /* Pods_Messages_App.framework */; };
 		DA11BE1F243489DC00E41D94 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA11BE1E243489DC00E41D94 /* GoogleService-Info.plist */; };
+		DA11BE222434BA5A00E41D94 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA11BE212434BA5A00E41D94 /* AuthService.swift */; };
+		DA11BE242434C6A200E41D94 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA11BE232434C6A200E41D94 /* Validator.swift */; };
+		DA11BE262434C94500E41D94 /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA11BE252434C94500E41D94 /* AuthError.swift */; };
 		DA25C818242B01870005AB3C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA25C817242B01870005AB3C /* LoginViewController.swift */; };
 		DA25C81A242B09CC0005AB3C /* SetupProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA25C819242B09CC0005AB3C /* SetupProfileViewController.swift */; };
 		DA25C81C242B10A20005AB3C /* AddPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA25C81B242B10A20005AB3C /* AddPhotoView.swift */; };
@@ -54,6 +57,9 @@
 		523D3468FE9230A91CD7C8F9 /* Pods_Messages_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Messages_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDDD23D440CE6886346F6477 /* Pods-Messages-App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Messages-App.debug.xcconfig"; path = "Target Support Files/Pods-Messages-App/Pods-Messages-App.debug.xcconfig"; sourceTree = "<group>"; };
 		DA11BE1E243489DC00E41D94 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		DA11BE212434BA5A00E41D94 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		DA11BE232434C6A200E41D94 /* Validator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
+		DA11BE252434C94500E41D94 /* AuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
 		DA25C817242B01870005AB3C /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		DA25C819242B09CC0005AB3C /* SetupProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupProfileViewController.swift; sourceTree = "<group>"; };
 		DA25C81B242B10A20005AB3C /* AddPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoView.swift; sourceTree = "<group>"; };
@@ -114,6 +120,15 @@
 				523D3468FE9230A91CD7C8F9 /* Pods_Messages_App.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DA11BE202434BA2F00E41D94 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				DA90AD0A242DB830003E41B7 /* Models */,
+				DA11BE212434BA5A00E41D94 /* AuthService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		DA25C81F242BA7B50005AB3C /* SignIn&Auth */ = {
@@ -203,6 +218,15 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		DA9D8D192434D4BC0085946B /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				DA11BE232434C6A200E41D94 /* Validator.swift */,
+				DA11BE252434C94500E41D94 /* AuthError.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		DADA4885242CDFF200E01F05 /* MainTabBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -246,11 +270,12 @@
 		DAE644582429D1810001467C /* Messages-App */ = {
 			isa = PBXGroup;
 			children = (
-				DA90AD0A242DB830003E41B7 /* Models */,
+				DA11BE202434BA2F00E41D94 /* Services */,
 				DA90AD05242DB533003E41B7 /* FakeData */,
 				DA48D6662429F8DD001BA1CF /* ViewControllers */,
 				DA90ACFB242D14A1003E41B7 /* Protocols */,
 				DA48D6652429F8D4001BA1CF /* Extensions */,
+				DA9D8D192434D4BC0085946B /* Helpers */,
 				DAE644592429D1810001467C /* AppDelegate.swift */,
 				DAE6445B2429D1810001467C /* SceneDelegate.swift */,
 				DAE644622429D1830001467C /* Assets.xcassets */,
@@ -412,8 +437,10 @@
 				DA90ACFA242D0BB1003E41B7 /* GradientView.swift in Sources */,
 				DADC3DB7242A3BFB00BC304E /* SignUpViewController.swift in Sources */,
 				DA48D670242A01F8001BA1CF /* UIImageView+.swift in Sources */,
+				DA11BE262434C94500E41D94 /* AuthError.swift in Sources */,
 				DADA4888242CE08100E01F05 /* ActiveChatCell.swift in Sources */,
 				DAE6445E2429D1810001467C /* AuthViewController.swift in Sources */,
+				DA11BE242434C6A200E41D94 /* Validator.swift in Sources */,
 				DA25C823242BA8ED0005AB3C /* PeopleViewController.swift in Sources */,
 				DA25C81A242B09CC0005AB3C /* SetupProfileViewController.swift in Sources */,
 				DACF89DE242F171B00FAF796 /* InsertableTextField.swift in Sources */,
@@ -437,6 +464,7 @@
 				DA8947DA242A0E4B004240AD /* ButtonFormView.swift in Sources */,
 				DA48D6682429F8F2001BA1CF /* UIButton+.swift in Sources */,
 				DA90AD07242DB775003E41B7 /* MChat.swift in Sources */,
+				DA11BE222434BA5A00E41D94 /* AuthService.swift in Sources */,
 				DA25C818242B01870005AB3C /* LoginViewController.swift in Sources */,
 				DA48D66C2429FC68001BA1CF /* UIColor+.swift in Sources */,
 			);

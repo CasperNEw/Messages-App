@@ -30,6 +30,26 @@ class LoginViewController: UIViewController {
         view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         googleButton.addLogo(image: #imageLiteral(resourceName: "googleLogo"), leading: 24)
         setupConstraints()
+
+        googleButton.addTarget(self, action: #selector(googleButtonTapped), for: .touchUpInside)
+        loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
+    }
+
+    @objc func googleButtonTapped() {
+        print(#function)
+    }
+    @objc func loginButtonTapped() {
+        print(#function)
+        AuthService.shared.login(email: emailTextField.text!,
+                                 password: passwordTextField.text!) { (result) in
+                                    switch result {
+                                    case .success(let user):
+                                        print(user.email as Any)
+                                        self.showAlert(with: "Complete", and: "Congratiluation! Sign In!")
+                                    case .failure(let error):
+                                        self.showAlert(with: "Damn", and: error.localizedDescription)
+                                    }
+        }
     }
 }
 
@@ -66,8 +86,9 @@ extension LoginViewController {
             stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
             stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
 
-            bottomStackView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 70),
-            bottomStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40)
+            bottomStackView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 20),
+            bottomStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
+            bottomStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40)
         ])
 
     }

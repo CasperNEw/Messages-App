@@ -20,11 +20,30 @@ class AuthViewController: UIViewController {
     let emailButton = UIButton(title: "Email", titleColor: .white, backgroundColor: .buttonBlack())
     let loginButton = UIButton(title: "Login", titleColor: .buttonRed(), backgroundColor: .white, isShadow: true)
 
+    let signUpVC = SignUpViewController()
+    let loginVC = LoginViewController()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         googleButton.addLogo(image: #imageLiteral(resourceName: "googleLogo"), leading: 24)
         setupConstraints()
+
+        googleButton.addTarget(self, action: #selector(googleButtonTapped), for: .touchUpInside)
+        emailButton.addTarget(self, action: #selector(emailButtonTapped), for: .touchUpInside)
+        loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
+    }
+
+    @objc func googleButtonTapped() {
+        print(#function)
+    }
+    @objc func emailButtonTapped() {
+        print(#function)
+        present(signUpVC, animated: true, completion: nil)
+    }
+    @objc func loginButtonTapped() {
+        print(#function)
+        present(loginVC, animated: true, completion: nil)
     }
 }
 
