@@ -7,6 +7,7 @@ target 'Messages-App' do
 pod 'SwiftLint'
 pod 'Firebase/Analytics'
 pod 'Firebase/Auth'
+pod 'Firebase/Firestore'
   # Pods for Messages-App
 
 end

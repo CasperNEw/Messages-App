@@ -29,6 +29,9 @@ class AuthViewController: UIViewController {
         googleButton.addLogo(image: #imageLiteral(resourceName: "googleLogo"), leading: 24)
         setupConstraints()
 
+        signUpVC.delegate = self
+        loginVC.delegate = self
+
         googleButton.addTarget(self, action: #selector(googleButtonTapped), for: .touchUpInside)
         emailButton.addTarget(self, action: #selector(emailButtonTapped), for: .touchUpInside)
         loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
@@ -72,6 +75,16 @@ extension AuthViewController {
             stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
             stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40)
         ])
+    }
+}
+
+extension AuthViewController: AuthNavigatingDelegate {
+    func toLoginVC() {
+        present(loginVC, animated: true, completion: nil)
+    }
+
+    func toSignUpVC() {
+        present(signUpVC, animated: true, completion: nil)
     }
 }
 

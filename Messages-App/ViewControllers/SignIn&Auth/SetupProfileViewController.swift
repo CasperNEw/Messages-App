@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class SetupProfileViewController: UIViewController {
 
@@ -23,10 +24,43 @@ class SetupProfileViewController: UIViewController {
     let fullNameTextField = OneLineTextField(font: .avenir20())
     let aboutMeTextField = OneLineTextField(font: .avenir20())
 
+    private let currentUser: User
+
+    init(currentUser: User) {
+        self.currentUser = currentUser
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         setupConstraints()
+
+        goToChatsButton.addTarget(self, action: #selector(goToChatsButtonTapped), for: .touchUpInside)
+    }
+
+    @objc func goToChatsButtonTapped() {
+
+        guard let email = currentUser.email else {
+            self.showAlert(with: "Ошибка!", and: "Непредвиденная ошибка в работе приложения!")
+            return
+        }
+        FirestoreService.shared.saveProfile(
+            userId: currentUser.uid, username: fullNameTextField.text,
+            email: email, avatarPath: "not exist", description: aboutMeTextField.text,
+            sex: sexSegmentedControl.titleForSegment(at: sexSegmentedControl.selectedSegmentIndex)) { (result) in
+                switch result {
+                case .success(let mUser):
+                    self.showAlert(with: "Успешно!", and: "Приятного общения!")
+                    print(mUser)
+                case .failure(let error):
+                    self.showAlert(with: "Ошибка!", and: error.localizedDescription)
+                }
+        }
     }
 }
 
@@ -77,7 +111,7 @@ struct SetupProfileVCProvider: PreviewProvider {
     }
 
     struct ContainerView: UIViewControllerRepresentable {
-        let setupProfileVC = SetupProfileViewController()
+        let setupProfileVC = SetupProfileViewController(currentUser: Auth.auth().currentUser!)
         // swiftlint:disable line_length
         func makeUIViewController(context: UIViewControllerRepresentableContext<SetupProfileVCProvider.ContainerView>) -> SetupProfileViewController {
             return setupProfileVC

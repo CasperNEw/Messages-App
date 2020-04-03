@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol AuthNavigatingDelegate: AnyObject {
+    func toLoginVC()
+    func toSignUpVC()
+}
+
 class LoginViewController: UIViewController {
 
     let welcomeLabel = UILabel(text: "Welcome Back!", font: .avenir26())
@@ -25,6 +30,8 @@ class LoginViewController: UIViewController {
     let emailTextField = OneLineTextField(font: .avenir20())
     let passwordTextField = OneLineTextField(font: .avenir20())
 
+    weak var delegate: AuthNavigatingDelegate?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
@@ -33,6 +40,7 @@ class LoginViewController: UIViewController {
 
         googleButton.addTarget(self, action: #selector(googleButtonTapped), for: .touchUpInside)
         loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
+        signUpButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
     }
 
     @objc func googleButtonTapped() {
@@ -44,11 +52,18 @@ class LoginViewController: UIViewController {
                                  password: passwordTextField.text!) { (result) in
                                     switch result {
                                     case .success(let user):
-                                        print(user.email as Any)
-                                        self.showAlert(with: "Complete", and: "Congratiluation! Sign In!")
+                                        self.showAlert(with: "Успешно!", and: "Вы авторизированы!") {
+                                            self.present(SetupProfileViewController(currentUser: user),
+                                                         animated: true, completion: nil)
+                                        }
                                     case .failure(let error):
                                         self.showAlert(with: "Damn", and: error.localizedDescription)
                                     }
+        }
+    }
+    @objc func signUpButtonTapped() {
+        dismiss(animated: true) {
+            self.delegate?.toSignUpVC()
         }
     }
 }

@@ -35,6 +35,8 @@
 		DA90AD09242DB79B003E41B7 /* MUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90AD08242DB79B003E41B7 /* MUser.swift */; };
 		DA90AD0C242DBA69003E41B7 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90AD0B242DBA69003E41B7 /* UserCell.swift */; };
 		DA90AD0E242DFD20003E41B7 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90AD0D242DFD20003E41B7 /* UIViewController+.swift */; };
+		DAB2CD9E243756FD00E637D7 /* FirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2CD9D243756FD00E637D7 /* FirestoreService.swift */; };
+		DAB2CDA02437656500E637D7 /* UserError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2CD9F2437656500E637D7 /* UserError.swift */; };
 		DACF89DC242F0A6600FAF796 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF89DB242F0A6600FAF796 /* ProfileViewController.swift */; };
 		DACF89DE242F171B00FAF796 /* InsertableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF89DD242F171B00FAF796 /* InsertableTextField.swift */; };
 		DACF89E0242F1F4D00FAF796 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF89DF242F1F4D00FAF796 /* UIView+.swift */; };
@@ -83,6 +85,8 @@
 		DA90AD08242DB79B003E41B7 /* MUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MUser.swift; sourceTree = "<group>"; };
 		DA90AD0B242DBA69003E41B7 /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		DA90AD0D242DFD20003E41B7 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
+		DAB2CD9D243756FD00E637D7 /* FirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreService.swift; sourceTree = "<group>"; };
+		DAB2CD9F2437656500E637D7 /* UserError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserError.swift; sourceTree = "<group>"; };
 		DACF89DB242F0A6600FAF796 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		DACF89DD242F171B00FAF796 /* InsertableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertableTextField.swift; sourceTree = "<group>"; };
 		DACF89DF242F1F4D00FAF796 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
@@ -127,6 +131,7 @@
 			children = (
 				DA90AD0A242DB830003E41B7 /* Models */,
 				DA11BE212434BA5A00E41D94 /* AuthService.swift */,
+				DAB2CD9D243756FD00E637D7 /* FirestoreService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -223,6 +228,7 @@
 			children = (
 				DA11BE232434C6A200E41D94 /* Validator.swift */,
 				DA11BE252434C94500E41D94 /* AuthError.swift */,
+				DAB2CD9F2437656500E637D7 /* UserError.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -432,7 +438,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA25C821242BA7D30005AB3C /* ListViewController.swift in Sources */,
+				DAB2CD9E243756FD00E637D7 /* FirestoreService.swift in Sources */,
 				DADC3DB9242A3FC500BC304E /* OneLineTextField.swift in Sources */,
+				DAB2CDA02437656500E637D7 /* UserError.swift in Sources */,
 				DA90AD01242DA87F003E41B7 /* SectionHeader.swift in Sources */,
 				DA90ACFA242D0BB1003E41B7 /* GradientView.swift in Sources */,
 				DADC3DB7242A3BFB00BC304E /* SignUpViewController.swift in Sources */,
