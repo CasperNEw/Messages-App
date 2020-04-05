@@ -18,7 +18,22 @@ class FirestoreService {
         return database.collection("users")
     }
 
-    // подумать, может юзать структуру на вход
+    func getUserData(user: User, completion: @escaping (Result<MUser, Error>) -> Void) {
+        let docRef = usersRef.document(user.uid)
+        docRef.getDocument { (document, _ error) in
+            if let document = document, document.exists {
+                guard let mUser = MUser(document: document) else {
+                    completion(.failure(UserError.cannoUnwrapToMUser))
+                    return
+                }
+                completion(.success(mUser))
+            } else {
+                completion(.failure(UserError.cannotGetUserInfo))
+            }
+        }
+    }
+
+    // TODO: подумать, может юзать структуру на вход
     func saveProfile(userId: String, username: String?, email: String, avatarPath: String?,
                      description: String?, sex: String?, completion: @escaping (Result<MUser, Error>) -> Void) {
         guard Validator.isFilled(username: username, description: description, sex: sex) else {

@@ -37,6 +37,7 @@
 		DA90AD0E242DFD20003E41B7 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90AD0D242DFD20003E41B7 /* UIViewController+.swift */; };
 		DAB2CD9E243756FD00E637D7 /* FirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2CD9D243756FD00E637D7 /* FirestoreService.swift */; };
 		DAB2CDA02437656500E637D7 /* UserError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2CD9F2437656500E637D7 /* UserError.swift */; };
+		DAB2CDA22439B0FD00E637D7 /* UIWindow+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2CDA12439B0FD00E637D7 /* UIWindow+.swift */; };
 		DACF89DC242F0A6600FAF796 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF89DB242F0A6600FAF796 /* ProfileViewController.swift */; };
 		DACF89DE242F171B00FAF796 /* InsertableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF89DD242F171B00FAF796 /* InsertableTextField.swift */; };
 		DACF89E0242F1F4D00FAF796 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF89DF242F1F4D00FAF796 /* UIView+.swift */; };
@@ -87,6 +88,7 @@
 		DA90AD0D242DFD20003E41B7 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		DAB2CD9D243756FD00E637D7 /* FirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreService.swift; sourceTree = "<group>"; };
 		DAB2CD9F2437656500E637D7 /* UserError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserError.swift; sourceTree = "<group>"; };
+		DAB2CDA12439B0FD00E637D7 /* UIWindow+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+.swift"; sourceTree = "<group>"; };
 		DACF89DB242F0A6600FAF796 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		DACF89DD242F171B00FAF796 /* InsertableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertableTextField.swift; sourceTree = "<group>"; };
 		DACF89DF242F1F4D00FAF796 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
@@ -184,6 +186,7 @@
 				DA25C81D242B18D70005AB3C /* UISegmentedControl+.swift */,
 				DA90AD0D242DFD20003E41B7 /* UIViewController+.swift */,
 				DACF89DF242F1F4D00FAF796 /* UIView+.swift */,
+				DAB2CDA12439B0FD00E637D7 /* UIWindow+.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -448,6 +451,7 @@
 				DA11BE262434C94500E41D94 /* AuthError.swift in Sources */,
 				DADA4888242CE08100E01F05 /* ActiveChatCell.swift in Sources */,
 				DAE6445E2429D1810001467C /* AuthViewController.swift in Sources */,
+				DAB2CDA22439B0FD00E637D7 /* UIWindow+.swift in Sources */,
 				DA11BE242434C6A200E41D94 /* Validator.swift in Sources */,
 				DA25C823242BA8ED0005AB3C /* PeopleViewController.swift in Sources */,
 				DA25C81A242B09CC0005AB3C /* SetupProfileViewController.swift in Sources */,

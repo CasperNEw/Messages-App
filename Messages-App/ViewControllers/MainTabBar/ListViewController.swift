@@ -71,6 +71,18 @@ class ListViewController: UIViewController {
     }()
     //swiftlint:enable line_length
 
+    private let currentUser: MUser
+
+    init(currentUser: MUser) {
+        self.currentUser = currentUser
+        super.init(nibName: nil, bundle: nil)
+//        title = currentUser.username
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     // MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,6 +90,7 @@ class ListViewController: UIViewController {
         setupSearchBar()
         setupCollectionView()
         updateDataSource(with: nil)
+        setupNavigationItem()
     }
 
     private func setupSearchBar() {
@@ -98,6 +111,13 @@ class ListViewController: UIViewController {
         collectionView.register(SectionHeader.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: SectionHeader.reuseIdentifier)
+    }
+
+    private func setupNavigationItem() {
+        navigationItem.title = currentUser.username
+        let titleAttributes = [NSAttributedString.Key.foregroundColor: UIColor.darkGray,
+                               NSAttributedString.Key.font: UIFont.avenir20()]
+        navigationController?.navigationBar.titleTextAttributes = titleAttributes as [NSAttributedString.Key: Any]
     }
 }
 

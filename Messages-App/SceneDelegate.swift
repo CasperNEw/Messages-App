@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -18,7 +19,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        window?.rootViewController = AuthViewController()
+//        myTestSignOut()
+        if let user = Auth.auth().currentUser {
+            FirestoreService.shared.getUserData(user: user) { (result) in
+                switch result {
+                case .success(let mUser):
+                    let mainTabBar = MainTabBarController(currentUser: mUser)
+                    mainTabBar.modalPresentationStyle = .fullScreen
+                    self.window?.rootViewController = mainTabBar
+                case .failure(let error):
+                    print("[Error] \(#function), \(error.localizedDescription)")
+                    self.window?.rootViewController = AuthViewController()
+                }
+            }
+        } else {
+            window?.rootViewController = AuthViewController()
+        }
         window?.makeKeyAndVisible()
     }
 
@@ -35,5 +51,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
+    }
+
+    private func myTestSignOut() {
+        do {
+            try Auth.auth().signOut()
+            UIWindow.key?.rootViewController = AuthViewController()
+            //                UIApplication.shared.keyWindow?.rootViewController = AuthViewController()
+        } catch {
+            print("[Error] sign out problem \(error.localizedDescription)")
+        }
     }
 }

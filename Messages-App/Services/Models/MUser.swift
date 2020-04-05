@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseFirestore
 
 struct MUser: Hashable, Decodable {
 
@@ -16,6 +17,32 @@ struct MUser: Hashable, Decodable {
     var avatarPath: String
     var description: String
     var sex: String
+
+    init(userId: String, username: String, email: String, avatarPath: String, description: String, sex: String) {
+        self.userId = userId
+        self.username = username
+        self.email = email
+        self.avatarPath = avatarPath
+        self.description = description
+        self.sex = sex
+    }
+
+    init?(document: DocumentSnapshot) {
+        guard let data = document.data() else { return nil }
+        guard let userId = data["userId"] as? String,
+        let username = data["username"] as? String,
+        let email = data["email"] as? String,
+        let avatarPath = data["avatarPath"] as? String,
+        let description = data["description"] as? String,
+        let sex = data["sex"] as? String else { return nil }
+
+        self.userId = userId
+        self.username = username
+        self.email = email
+        self.avatarPath = avatarPath
+        self.description = description
+        self.sex = sex
+    }
 
     var representation: [String: Any] {
         var representation = ["userId": userId]

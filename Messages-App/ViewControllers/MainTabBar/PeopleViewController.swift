@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class PeopleViewController: UIViewController {
 
@@ -21,7 +22,8 @@ class PeopleViewController: UIViewController {
         }
     }
 
-    let users = Bundle.main.decode([MUser].self, from: "users.json")
+//    let users = Bundle.main.decode([MUser].self, from: "users.json")
+    let users = [MUser]()
 
     // MARK: Init Collection View
     lazy var collectionView: UICollectionView = {
@@ -66,6 +68,17 @@ class PeopleViewController: UIViewController {
     }()
     // swiftlint:enable line_length
 
+    private let currentUser: MUser
+
+    init(currentUser: MUser) {
+        self.currentUser = currentUser
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     // MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,6 +86,27 @@ class PeopleViewController: UIViewController {
         setupSearchBar()
         setupCollectionView()
         updateDataSource(with: nil)
+        setupNavigationItem()
+    }
+
+    @objc func signOut() {
+        let alertController = UIAlertController(title: nil, message: "Вы действительно хотите выйти?",
+                                                preferredStyle: .alert)
+        let firstAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
+        let secondAction = UIAlertAction(title: "Выход", style: .destructive) { (_) in
+            do {
+                try Auth.auth().signOut()
+                UIWindow.key?.rootViewController = AuthViewController()
+            } catch {
+                print("[Error] sign out problem \(error.localizedDescription)")
+            }
+        }
+        alertController.view.tintColor = .gray
+        secondAction.setValue(UIColor.buttonRed(), forKey: "titleTextColor")
+        alertController.addAction(firstAction)
+        alertController.addAction(secondAction)
+        present(alertController, animated: true)
+
     }
 
     private func setupSearchBar() {
@@ -92,6 +126,20 @@ class PeopleViewController: UIViewController {
         collectionView.register(SectionHeader.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: SectionHeader.reuseIdentifier)
+    }
+
+    private func setupNavigationItem() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain,
+                                                            target: self, action: #selector(signOut))
+        navigationItem.rightBarButtonItem?.tintColor = .gray
+        if let font = UIFont.avenir20() {
+            navigationItem.rightBarButtonItem?.setTitleTextAttributes([NSAttributedString.Key.font: font], for: .normal)
+        }
+
+        navigationItem.title = currentUser.username
+        let titleAttributes = [NSAttributedString.Key.foregroundColor: UIColor.darkGray,
+                               NSAttributedString.Key.font: UIFont.avenir20()]
+        navigationController?.navigationBar.titleTextAttributes = titleAttributes as [NSAttributedString.Key: Any]
     }
 }
 
