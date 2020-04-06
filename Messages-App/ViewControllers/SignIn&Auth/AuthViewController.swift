@@ -116,7 +116,7 @@ extension AuthViewController: GIDSignInDelegate {
                     }
                 }
             case .failure(let error):
-                self.showAlert(with: "Damn!", and: error.localizedDescription)
+                self.showAlert(with: "Ошибка!", and: error.localizedDescription)
             }
         }
     }

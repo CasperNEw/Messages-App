@@ -34,7 +34,7 @@ class FirestoreService {
     }
 
     // swiftlint:disable function_parameter_count
-    func saveProfile(userId: String, username: String?, email: String, avatarPath: String?,
+    func saveProfile(userId: String, username: String?, email: String, avatarImage: UIImage?,
                      description: String?, sex: String?, completion: @escaping (Result<MUser, Error>) -> Void) {
         guard Validator.isFilled(username: username, description: description, sex: sex) else {
             completion(.failure(UserError.notFilled))
@@ -46,15 +46,30 @@ class FirestoreService {
             return
         }
 
-        let mUser = MUser(userId: userId, username: username, email: email,
+        guard let avatarImage = avatarImage, avatarImage != #imageLiteral(resourceName: "avatar") else {
+            completion(.failure(UserError.photoNotExist))
+            return
+        }
+
+        var mUser = MUser(userId: userId, username: username, email: email,
                           avatarPath: "not exist", description: description, sex: sex)
-        self.usersRef.document(mUser.userId).setData(mUser.representation) { (error) in
-            if let error = error {
+
+        StorageService.shared.upload(image: avatarImage) { (result) in
+            switch result {
+            case .success(let url):
+                mUser.avatarPath = url.absoluteString
+                self.usersRef.document(mUser.userId).setData(mUser.representation) { (error) in
+                    if let error = error {
+                        completion(.failure(error))
+                    } else {
+                        completion(.success(mUser))
+                    }
+                }
+            case .failure(let error):
                 completion(.failure(error))
-            } else {
-                completion(.success(mUser))
             }
         }
+
     }
     // swiftlint:enable function_parameter_count
 }

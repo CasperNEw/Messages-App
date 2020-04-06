@@ -40,6 +40,9 @@
 		DAB2CDA22439B0FD00E637D7 /* UIWindow+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2CDA12439B0FD00E637D7 /* UIWindow+.swift */; };
 		DAB2CDA4243B28D300E637D7 /* AuthNavigatingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2CDA3243B28D300E637D7 /* AuthNavigatingDelegate.swift */; };
 		DAB2CDA6243B2FDF00E637D7 /* UIApplication+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2CDA5243B2FDF00E637D7 /* UIApplication+.swift */; };
+		DAB2CDA8243B508700E637D7 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2CDA7243B508700E637D7 /* StorageService.swift */; };
+		DAB2CDAA243B550400E637D7 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2CDA9243B550400E637D7 /* UIImage+.swift */; };
+		DAB2CDAC243B5B7500E637D7 /* StorageError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2CDAB243B5B7500E637D7 /* StorageError.swift */; };
 		DACF89DC242F0A6600FAF796 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF89DB242F0A6600FAF796 /* ProfileViewController.swift */; };
 		DACF89DE242F171B00FAF796 /* InsertableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF89DD242F171B00FAF796 /* InsertableTextField.swift */; };
 		DACF89E0242F1F4D00FAF796 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF89DF242F1F4D00FAF796 /* UIView+.swift */; };
@@ -93,6 +96,9 @@
 		DAB2CDA12439B0FD00E637D7 /* UIWindow+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+.swift"; sourceTree = "<group>"; };
 		DAB2CDA3243B28D300E637D7 /* AuthNavigatingDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthNavigatingDelegate.swift; sourceTree = "<group>"; };
 		DAB2CDA5243B2FDF00E637D7 /* UIApplication+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+.swift"; sourceTree = "<group>"; };
+		DAB2CDA7243B508700E637D7 /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
+		DAB2CDA9243B550400E637D7 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
+		DAB2CDAB243B5B7500E637D7 /* StorageError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageError.swift; sourceTree = "<group>"; };
 		DACF89DB242F0A6600FAF796 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		DACF89DD242F171B00FAF796 /* InsertableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertableTextField.swift; sourceTree = "<group>"; };
 		DACF89DF242F1F4D00FAF796 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
@@ -138,6 +144,7 @@
 				DA90AD0A242DB830003E41B7 /* Models */,
 				DA11BE212434BA5A00E41D94 /* AuthService.swift */,
 				DAB2CD9D243756FD00E637D7 /* FirestoreService.swift */,
+				DAB2CDA7243B508700E637D7 /* StorageService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -192,6 +199,7 @@
 				DACF89DF242F1F4D00FAF796 /* UIView+.swift */,
 				DAB2CDA12439B0FD00E637D7 /* UIWindow+.swift */,
 				DAB2CDA5243B2FDF00E637D7 /* UIApplication+.swift */,
+				DAB2CDA9243B550400E637D7 /* UIImage+.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -238,6 +246,7 @@
 				DA11BE232434C6A200E41D94 /* Validator.swift */,
 				DA11BE252434C94500E41D94 /* AuthError.swift */,
 				DAB2CD9F2437656500E637D7 /* UserError.swift */,
+				DAB2CDAB243B5B7500E637D7 /* StorageError.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -477,6 +486,7 @@
 				DAE6445E2429D1810001467C /* AuthViewController.swift in Sources */,
 				DAB2CDA22439B0FD00E637D7 /* UIWindow+.swift in Sources */,
 				DA11BE242434C6A200E41D94 /* Validator.swift in Sources */,
+				DAB2CDA8243B508700E637D7 /* StorageService.swift in Sources */,
 				DA25C823242BA8ED0005AB3C /* PeopleViewController.swift in Sources */,
 				DA25C81A242B09CC0005AB3C /* SetupProfileViewController.swift in Sources */,
 				DAB2CDA4243B28D300E637D7 /* AuthNavigatingDelegate.swift in Sources */,
@@ -492,7 +502,9 @@
 				DA90AD09242DB79B003E41B7 /* MUser.swift in Sources */,
 				DA48D66A2429FB54001BA1CF /* UIFont+.swift in Sources */,
 				DA25C81C242B10A20005AB3C /* AddPhotoView.swift in Sources */,
+				DAB2CDAA243B550400E637D7 /* UIImage+.swift in Sources */,
 				DA90AD0C242DBA69003E41B7 /* UserCell.swift in Sources */,
+				DAB2CDAC243B5B7500E637D7 /* StorageError.swift in Sources */,
 				DAE6445C2429D1810001467C /* SceneDelegate.swift in Sources */,
 				DA8947DC242A1253004240AD /* UIStackView+.swift in Sources */,
 				DA25C81E242B18D70005AB3C /* UISegmentedControl+.swift in Sources */,
