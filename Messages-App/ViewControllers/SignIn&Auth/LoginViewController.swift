@@ -7,11 +7,7 @@
 //
 
 import UIKit
-
-protocol AuthNavigatingDelegate: AnyObject {
-    func toLoginVC()
-    func toSignUpVC()
-}
+import GoogleSignIn
 
 class LoginViewController: UIViewController {
 
@@ -45,7 +41,10 @@ class LoginViewController: UIViewController {
 
     @objc func googleButtonTapped() {
         print(#function)
+        GIDSignIn.sharedInstance()?.presentingViewController = self
+        GIDSignIn.sharedInstance().signIn()
     }
+
     @objc func loginButtonTapped() {
         print(#function)
         AuthService.shared.login(email: emailTextField.text!,

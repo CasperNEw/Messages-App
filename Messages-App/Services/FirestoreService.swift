@@ -33,16 +33,21 @@ class FirestoreService {
         }
     }
 
-    // TODO: подумать, может юзать структуру на вход
+    // swiftlint:disable function_parameter_count
     func saveProfile(userId: String, username: String?, email: String, avatarPath: String?,
                      description: String?, sex: String?, completion: @escaping (Result<MUser, Error>) -> Void) {
         guard Validator.isFilled(username: username, description: description, sex: sex) else {
             completion(.failure(UserError.notFilled))
             return
         }
-        // u can do better
-        let mUser = MUser(userId: userId, username: username!, email: email,
-                          avatarPath: "not exist", description: description!, sex: sex!)
+
+        guard let username = username, let description = description, let sex = sex else {
+            completion(.failure(UserError.notFilled))
+            return
+        }
+
+        let mUser = MUser(userId: userId, username: username, email: email,
+                          avatarPath: "not exist", description: description, sex: sex)
         self.usersRef.document(mUser.userId).setData(mUser.representation) { (error) in
             if let error = error {
                 completion(.failure(error))
@@ -51,19 +56,5 @@ class FirestoreService {
             }
         }
     }
-
-//    // Add a new document with a generated ID
-//    var ref: DocumentReference? = nil
-//    ref = db.collection("users").addDocument(data: [
-//        "first": "Ada",
-//        "last": "Lovelace",
-//        "born": 1815
-//    ]) { err in
-//        if let err = err {
-//            print("Error adding document: \(err)")
-//        } else {
-//            print("Document added with ID: \(ref!.documentID)")
-//        }
-//    }
-
+    // swiftlint:enable function_parameter_count
 }

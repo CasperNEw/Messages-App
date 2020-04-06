@@ -38,6 +38,8 @@
 		DAB2CD9E243756FD00E637D7 /* FirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2CD9D243756FD00E637D7 /* FirestoreService.swift */; };
 		DAB2CDA02437656500E637D7 /* UserError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2CD9F2437656500E637D7 /* UserError.swift */; };
 		DAB2CDA22439B0FD00E637D7 /* UIWindow+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2CDA12439B0FD00E637D7 /* UIWindow+.swift */; };
+		DAB2CDA4243B28D300E637D7 /* AuthNavigatingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2CDA3243B28D300E637D7 /* AuthNavigatingDelegate.swift */; };
+		DAB2CDA6243B2FDF00E637D7 /* UIApplication+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2CDA5243B2FDF00E637D7 /* UIApplication+.swift */; };
 		DACF89DC242F0A6600FAF796 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF89DB242F0A6600FAF796 /* ProfileViewController.swift */; };
 		DACF89DE242F171B00FAF796 /* InsertableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF89DD242F171B00FAF796 /* InsertableTextField.swift */; };
 		DACF89E0242F1F4D00FAF796 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF89DF242F1F4D00FAF796 /* UIView+.swift */; };
@@ -89,6 +91,8 @@
 		DAB2CD9D243756FD00E637D7 /* FirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreService.swift; sourceTree = "<group>"; };
 		DAB2CD9F2437656500E637D7 /* UserError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserError.swift; sourceTree = "<group>"; };
 		DAB2CDA12439B0FD00E637D7 /* UIWindow+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+.swift"; sourceTree = "<group>"; };
+		DAB2CDA3243B28D300E637D7 /* AuthNavigatingDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthNavigatingDelegate.swift; sourceTree = "<group>"; };
+		DAB2CDA5243B2FDF00E637D7 /* UIApplication+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+.swift"; sourceTree = "<group>"; };
 		DACF89DB242F0A6600FAF796 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		DACF89DD242F171B00FAF796 /* InsertableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertableTextField.swift; sourceTree = "<group>"; };
 		DACF89DF242F1F4D00FAF796 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
@@ -187,6 +191,7 @@
 				DA90AD0D242DFD20003E41B7 /* UIViewController+.swift */,
 				DACF89DF242F1F4D00FAF796 /* UIView+.swift */,
 				DAB2CDA12439B0FD00E637D7 /* UIWindow+.swift */,
+				DAB2CDA5243B2FDF00E637D7 /* UIApplication+.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -195,6 +200,7 @@
 			isa = PBXGroup;
 			children = (
 				DA90ACFC242D14B1003E41B7 /* SelfConfiguringCell.swift */,
+				DAB2CDA3243B28D300E637D7 /* AuthNavigatingDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -279,14 +285,14 @@
 		DAE644582429D1810001467C /* Messages-App */ = {
 			isa = PBXGroup;
 			children = (
+				DAE644592429D1810001467C /* AppDelegate.swift */,
+				DAE6445B2429D1810001467C /* SceneDelegate.swift */,
 				DA11BE202434BA2F00E41D94 /* Services */,
 				DA90AD05242DB533003E41B7 /* FakeData */,
 				DA48D6662429F8DD001BA1CF /* ViewControllers */,
 				DA90ACFB242D14A1003E41B7 /* Protocols */,
 				DA48D6652429F8D4001BA1CF /* Extensions */,
 				DA9D8D192434D4BC0085946B /* Helpers */,
-				DAE644592429D1810001467C /* AppDelegate.swift */,
-				DAE6445B2429D1810001467C /* SceneDelegate.swift */,
 				DAE644622429D1830001467C /* Assets.xcassets */,
 				DAE644642429D1830001467C /* LaunchScreen.storyboard */,
 				DAE644672429D1830001467C /* Info.plist */,
@@ -317,6 +323,7 @@
 				DAE644532429D1810001467C /* Frameworks */,
 				DAE644542429D1810001467C /* Resources */,
 				038FC782B4127FF9CB5AFE41 /* [CP] Embed Pods Frameworks */,
+				B5A27F994C7B5143E00B9149 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -416,6 +423,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		B5A27F994C7B5143E00B9149 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Messages-App/Pods-Messages-App-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Messages-App/Pods-Messages-App-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Messages-App/Pods-Messages-App-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		DA48D6642429DF68001BA1CF /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -455,6 +479,7 @@
 				DA11BE242434C6A200E41D94 /* Validator.swift in Sources */,
 				DA25C823242BA8ED0005AB3C /* PeopleViewController.swift in Sources */,
 				DA25C81A242B09CC0005AB3C /* SetupProfileViewController.swift in Sources */,
+				DAB2CDA4243B28D300E637D7 /* AuthNavigatingDelegate.swift in Sources */,
 				DACF89DE242F171B00FAF796 /* InsertableTextField.swift in Sources */,
 				DADA4884242CADCB00E01F05 /* Bundle-Decodable.swift in Sources */,
 				DACF89E0242F1F4D00FAF796 /* UIView+.swift in Sources */,
@@ -463,6 +488,7 @@
 				DACF89E2242F3B9400FAF796 /* ChatRequestViewController.swift in Sources */,
 				DAE6445A2429D1810001467C /* AppDelegate.swift in Sources */,
 				DA90ACFD242D14B2003E41B7 /* SelfConfiguringCell.swift in Sources */,
+				DAB2CDA6243B2FDF00E637D7 /* UIApplication+.swift in Sources */,
 				DA90AD09242DB79B003E41B7 /* MUser.swift in Sources */,
 				DA48D66A2429FB54001BA1CF /* UIFont+.swift in Sources */,
 				DA25C81C242B10A20005AB3C /* AddPhotoView.swift in Sources */,
