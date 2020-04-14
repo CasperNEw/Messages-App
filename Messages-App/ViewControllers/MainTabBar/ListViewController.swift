@@ -22,8 +22,10 @@ class ListViewController: UIViewController {
         }
     }
 
-    let activeChats = Bundle.main.decode([MChat].self, from: "activeChats.json")
-    let waitingChats = Bundle.main.decode([MChat].self, from: "waitingChats.json")
+    let activeChats = [MChat]()
+    let waitingChats = [MChat]()
+//    let activeChats = Bundle.main.decode([MChat].self, from: "activeChats.json")
+//    let waitingChats = Bundle.main.decode([MChat].self, from: "waitingChats.json")
 
     // MARK: Init Collection View
     lazy var collectionView: UICollectionView = {

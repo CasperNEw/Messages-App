@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseFirestore
 
 class PeopleViewController: UIViewController {
 
@@ -22,8 +23,8 @@ class PeopleViewController: UIViewController {
         }
     }
 
-//    let users = Bundle.main.decode([MUser].self, from: "users.json")
-    let users = [MUser]()
+    var users = [MUser]()
+    private var userListener: ListenerRegistration?
 
     // MARK: Init Collection View
     lazy var collectionView: UICollectionView = {
@@ -47,23 +48,6 @@ class PeopleViewController: UIViewController {
                                       with: user, for: indexPath)
             }
         })
-
-        dataSource.supplementaryViewProvider = {
-            collectionView, kind, indexPath in
-            guard let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SectionHeader.reuseIdentifier, for: indexPath) as? SectionHeader else {
-                assertionFailure("[Error] Can not create new section header")
-                return nil
-            }
-
-            let items = self.dataSource.snapshot().itemIdentifiers(inSection: .users)
-            guard let section = Section(rawValue: indexPath.section) else {
-                assertionFailure("[Error] Unknown section kind")
-                return nil
-            }
-            sectionHeader.configure(text: section.description(usersCount: items.count), font: .systemFont(ofSize: 36, weight: .light), color: .label)
-
-            return sectionHeader
-        }
         return dataSource
     }()
     // swiftlint:enable line_length
@@ -73,6 +57,10 @@ class PeopleViewController: UIViewController {
     init(currentUser: MUser) {
         self.currentUser = currentUser
         super.init(nibName: nil, bundle: nil)
+    }
+
+    deinit {
+        userListener?.remove()
     }
 
     required init?(coder: NSCoder) {
@@ -85,28 +73,9 @@ class PeopleViewController: UIViewController {
 
         setupSearchBar()
         setupCollectionView()
-        updateDataSource(with: nil)
         setupNavigationItem()
-    }
-
-    @objc func signOut() {
-        let alertController = UIAlertController(title: nil, message: "Вы действительно хотите выйти?",
-                                                preferredStyle: .alert)
-        let firstAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
-        let secondAction = UIAlertAction(title: "Выход", style: .destructive) { (_) in
-            do {
-                try Auth.auth().signOut()
-                UIWindow.key?.rootViewController = AuthViewController()
-            } catch {
-                print("[Error] sign out problem \(error.localizedDescription)")
-            }
-        }
-        alertController.view.tintColor = .gray
-        secondAction.setValue(UIColor.buttonRed(), forKey: "titleTextColor")
-        alertController.addAction(firstAction)
-        alertController.addAction(secondAction)
-        present(alertController, animated: true)
-
+        setupUserListener()
+        setupSectionHeader()
     }
 
     private func setupSearchBar() {
@@ -126,6 +95,7 @@ class PeopleViewController: UIViewController {
         collectionView.register(SectionHeader.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: SectionHeader.reuseIdentifier)
+        collectionView.delegate = self
     }
 
     private func setupNavigationItem() {
@@ -141,6 +111,37 @@ class PeopleViewController: UIViewController {
                                NSAttributedString.Key.font: UIFont.avenir20()]
         navigationController?.navigationBar.titleTextAttributes = titleAttributes as [NSAttributedString.Key: Any]
     }
+
+    @objc func signOut() {
+        let alertController = UIAlertController(title: nil, message: "Вы действительно хотите выйти?",
+                                                preferredStyle: .alert)
+        let firstAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
+        let secondAction = UIAlertAction(title: "Выход", style: .destructive) { (_) in
+            do {
+                try Auth.auth().signOut()
+                UIWindow.key?.rootViewController = AuthViewController()
+            } catch {
+                print("[Error] sign out problem \(error.localizedDescription)")
+            }
+        }
+        alertController.view.tintColor = .gray
+        secondAction.setValue(UIColor.buttonRed(), forKey: "titleTextColor")
+        alertController.addAction(firstAction)
+        alertController.addAction(secondAction)
+        present(alertController, animated: true)
+    }
+
+    private func setupUserListener() {
+        userListener = ListenerService.shared.usersObeserve(users: users, completion: { (result) in
+            switch result {
+            case .success(let users):
+                self.users = users
+                self.updateDataSource(with: nil)
+            case .failure(let error):
+                self.showAlert(with: "Ошибка!", and: error.localizedDescription)
+            }
+        })
+    }
 }
 
 // MARK: Configure Data Source
@@ -155,6 +156,27 @@ extension PeopleViewController {
         snapshot.appendSections([.users])
         snapshot.appendItems(filtered, toSection: .users)
         dataSource.apply(snapshot, animatingDifferences: true)
+    }
+
+    private func setupSectionHeader() {
+        dataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
+            // swiftlint:disable line_length
+            guard let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SectionHeader.reuseIdentifier, for: indexPath) as? SectionHeader else {
+                assertionFailure("[Error] Can not create new section header")
+                return nil
+            }
+            // swiftlint:enable line_length
+            let items = self.dataSource.snapshot().itemIdentifiers(inSection: .users)
+            guard let section = Section(rawValue: indexPath.section) else {
+                assertionFailure("[Error] Unknown section kind")
+                return nil
+            }
+            sectionHeader.configure(text: section.description(usersCount: items.count),
+                                    font: .systemFont(ofSize: 36, weight: .light),
+                                    color: .label)
+
+            return sectionHeader
+        }
     }
 }
 
@@ -222,6 +244,15 @@ extension PeopleViewController: UISearchBarDelegate {
     }
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         updateDataSource(with: nil)
+    }
+}
+
+// MARK: UICollectionViewDelegate
+extension PeopleViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let user = self.dataSource.itemIdentifier(for: indexPath) else { return }
+        let profileVC = ProfileViewController(user: user)
+        present(profileVC, animated: true)
     }
 }
 

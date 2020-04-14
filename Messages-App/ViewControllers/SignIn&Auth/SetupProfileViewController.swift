@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseAuth
+import SDWebImage
 
 class SetupProfileViewController: UIViewController {
 
@@ -33,14 +34,7 @@ class SetupProfileViewController: UIViewController {
         if let username = currentUser.displayName {
             fullNameTextField.text = username
         }
-        if let imagePath = currentUser.photoURL {
-            do {
-                let data = try Data(contentsOf: imagePath)
-                fullImageView.circleImageView.image = UIImage(data: data)
-            } catch {
-                return
-            }
-        }
+        fullImageView.circleImageView.sd_setImage(with: currentUser.photoURL)
     }
 
     required init?(coder: NSCoder) {

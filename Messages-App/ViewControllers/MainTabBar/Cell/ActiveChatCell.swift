@@ -31,9 +31,9 @@ class ActiveChatCell: UICollectionViewCell, SelfConfiguringCell {
 
     func configure<U>(with value: U) where U: Hashable {
         guard let chat = value as? MChat else { return }
-        friendName.text = chat.username
+        friendName.text = chat.friendUsername
         lastMessage.text = chat.lastMessage
-        friendImageView.image = UIImage(named: chat.userImageString)
+        friendImageView.image = UIImage(named: chat.friendAvatarPath)
     }
 }
 

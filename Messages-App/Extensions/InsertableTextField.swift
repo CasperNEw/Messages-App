@@ -64,6 +64,7 @@ class InsertableTextField: UITextField {
     }
 }
 
+/*
 // MARK: SwiftUI
 import SwiftUI
 
@@ -83,3 +84,4 @@ struct TextFieldProvider: PreviewProvider {
         // swiftlint:enable line_length
     }
 }
+*/

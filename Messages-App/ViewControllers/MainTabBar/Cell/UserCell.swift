@@ -7,12 +7,13 @@
 //
 
 import UIKit
+import SDWebImage
 
 class UserCell: UICollectionViewCell, SelfConfiguringCell {
 
     static var reuseIdentifier: String = "UserCell"
-    let friendImageView = UIImageView()
-    let friendName = UILabel(text: "Username", font: .laoSangamMN20())
+    let userImageView = UIImageView()
+    let userName = UILabel(text: "Username", font: .laoSangamMN20())
     let containerView = UIView()
 
     override init(frame: CGRect) {
@@ -35,10 +36,13 @@ class UserCell: UICollectionViewCell, SelfConfiguringCell {
         self.containerView.clipsToBounds = true
     }
 
+    override func prepareForReuse() {
+        userImageView.image = nil
+    }
     func configure<U>(with value: U) where U: Hashable {
         guard let user = value as? MUser else { return }
-        friendImageView.image = UIImage(named: user.avatarPath)
-        friendName.text = user.username
+        userName.text = user.username
+        userImageView.sd_setImage(with: URL(string: user.avatarPath))
        }
 
     required init?(coder: NSCoder) {
@@ -51,12 +55,12 @@ extension UserCell {
 
     private func setupConstraints() {
 
-        friendImageView.translatesAutoresizingMaskIntoConstraints = false
-        friendName.translatesAutoresizingMaskIntoConstraints = false
+        userImageView.translatesAutoresizingMaskIntoConstraints = false
+        userName.translatesAutoresizingMaskIntoConstraints = false
         containerView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(containerView)
-        containerView.addSubview(friendImageView)
-        containerView.addSubview(friendName)
+        containerView.addSubview(userImageView)
+        containerView.addSubview(userName)
 
         NSLayoutConstraint.activate([
             containerView.topAnchor.constraint(equalTo: self.topAnchor),
@@ -64,15 +68,15 @@ extension UserCell {
             containerView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             containerView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
 
-            friendImageView.topAnchor.constraint(equalTo: containerView.topAnchor),
-            friendImageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-            friendImageView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-            friendImageView.heightAnchor.constraint(equalTo: containerView.widthAnchor),
+            userImageView.topAnchor.constraint(equalTo: containerView.topAnchor),
+            userImageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            userImageView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            userImageView.heightAnchor.constraint(equalTo: containerView.widthAnchor),
 
-            friendName.topAnchor.constraint(equalTo: friendImageView.bottomAnchor),
-            friendName.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
-            friendName.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 8),
-            friendName.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: 8)
+            userName.topAnchor.constraint(equalTo: userImageView.bottomAnchor),
+            userName.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+            userName.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 8),
+            userName.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: 8)
         ])
     }
 }

@@ -18,6 +18,8 @@ class FirestoreService {
         return database.collection("users")
     }
 
+    var currentUser: MUser?
+
     func getUserData(user: User, completion: @escaping (Result<MUser, Error>) -> Void) {
         let docRef = usersRef.document(user.uid)
         docRef.getDocument { (document, _ error) in
@@ -26,6 +28,7 @@ class FirestoreService {
                     completion(.failure(UserError.cannoUnwrapToMUser))
                     return
                 }
+                self.currentUser = mUser
                 completion(.success(mUser))
             } else {
                 completion(.failure(UserError.cannotGetUserInfo))
@@ -72,4 +75,30 @@ class FirestoreService {
 
     }
     // swiftlint:enable function_parameter_count
+
+    func createWaitingChat(message: String, to user: MUser, completion: @escaping (Result<Void, Error>) -> Void) {
+        guard let currentUser = currentUser else { return }
+        let reference = database.collection(["users", user.userId, "waitingChats"].joined(separator: "/"))
+        let messageRef = reference.document(currentUser.userId).collection("messages")
+
+        let message = MMessage(user: currentUser, content: message)
+
+        let chat = MChat(friendUsername: currentUser.username,
+                         friendAvatarPath: currentUser.avatarPath,
+                         lastMessage: message.content,
+                         friendId: currentUser.userId)
+
+        reference.document(currentUser.userId).setData(chat.representation) { (error) in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            messageRef.addDocument(data: message.representation) { (error) in
+                if let error = error {
+                    completion(.failure(error))
+                }
+                completion(.success(Void()))
+            }
+        }
+    }
 }

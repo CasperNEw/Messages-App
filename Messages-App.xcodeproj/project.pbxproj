@@ -12,6 +12,7 @@
 		DA11BE222434BA5A00E41D94 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA11BE212434BA5A00E41D94 /* AuthService.swift */; };
 		DA11BE242434C6A200E41D94 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA11BE232434C6A200E41D94 /* Validator.swift */; };
 		DA11BE262434C94500E41D94 /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA11BE252434C94500E41D94 /* AuthError.swift */; };
+		DA2450BB2444A425001DE6BC /* MMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2450BA2444A425001DE6BC /* MMessage.swift */; };
 		DA25C818242B01870005AB3C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA25C817242B01870005AB3C /* LoginViewController.swift */; };
 		DA25C81A242B09CC0005AB3C /* SetupProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA25C819242B09CC0005AB3C /* SetupProfileViewController.swift */; };
 		DA25C81C242B10A20005AB3C /* AddPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA25C81B242B10A20005AB3C /* AddPhotoView.swift */; };
@@ -43,6 +44,7 @@
 		DAB2CDA8243B508700E637D7 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2CDA7243B508700E637D7 /* StorageService.swift */; };
 		DAB2CDAA243B550400E637D7 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2CDA9243B550400E637D7 /* UIImage+.swift */; };
 		DAB2CDAC243B5B7500E637D7 /* StorageError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2CDAB243B5B7500E637D7 /* StorageError.swift */; };
+		DAC5478D2444322F00E57F0A /* ListenerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC5478C2444322F00E57F0A /* ListenerService.swift */; };
 		DACF89DC242F0A6600FAF796 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF89DB242F0A6600FAF796 /* ProfileViewController.swift */; };
 		DACF89DE242F171B00FAF796 /* InsertableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF89DD242F171B00FAF796 /* InsertableTextField.swift */; };
 		DACF89E0242F1F4D00FAF796 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF89DF242F1F4D00FAF796 /* UIView+.swift */; };
@@ -68,6 +70,7 @@
 		DA11BE212434BA5A00E41D94 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		DA11BE232434C6A200E41D94 /* Validator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
 		DA11BE252434C94500E41D94 /* AuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
+		DA2450BA2444A425001DE6BC /* MMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMessage.swift; sourceTree = "<group>"; };
 		DA25C817242B01870005AB3C /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		DA25C819242B09CC0005AB3C /* SetupProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupProfileViewController.swift; sourceTree = "<group>"; };
 		DA25C81B242B10A20005AB3C /* AddPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoView.swift; sourceTree = "<group>"; };
@@ -99,6 +102,7 @@
 		DAB2CDA7243B508700E637D7 /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		DAB2CDA9243B550400E637D7 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
 		DAB2CDAB243B5B7500E637D7 /* StorageError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageError.swift; sourceTree = "<group>"; };
+		DAC5478C2444322F00E57F0A /* ListenerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListenerService.swift; sourceTree = "<group>"; };
 		DACF89DB242F0A6600FAF796 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		DACF89DD242F171B00FAF796 /* InsertableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertableTextField.swift; sourceTree = "<group>"; };
 		DACF89DF242F1F4D00FAF796 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
@@ -145,6 +149,7 @@
 				DA11BE212434BA5A00E41D94 /* AuthService.swift */,
 				DAB2CD9D243756FD00E637D7 /* FirestoreService.swift */,
 				DAB2CDA7243B508700E637D7 /* StorageService.swift */,
+				DAC5478C2444322F00E57F0A /* ListenerService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -236,6 +241,7 @@
 			children = (
 				DA90AD06242DB775003E41B7 /* MChat.swift */,
 				DA90AD08242DB79B003E41B7 /* MUser.swift */,
+				DA2450BA2444A425001DE6BC /* MMessage.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -476,6 +482,7 @@
 				DA25C821242BA7D30005AB3C /* ListViewController.swift in Sources */,
 				DAB2CD9E243756FD00E637D7 /* FirestoreService.swift in Sources */,
 				DADC3DB9242A3FC500BC304E /* OneLineTextField.swift in Sources */,
+				DA2450BB2444A425001DE6BC /* MMessage.swift in Sources */,
 				DAB2CDA02437656500E637D7 /* UserError.swift in Sources */,
 				DA90AD01242DA87F003E41B7 /* SectionHeader.swift in Sources */,
 				DA90ACFA242D0BB1003E41B7 /* GradientView.swift in Sources */,
@@ -517,6 +524,7 @@
 				DA11BE222434BA5A00E41D94 /* AuthService.swift in Sources */,
 				DA25C818242B01870005AB3C /* LoginViewController.swift in Sources */,
 				DA48D66C2429FC68001BA1CF /* UIColor+.swift in Sources */,
+				DAC5478D2444322F00E57F0A /* ListenerService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

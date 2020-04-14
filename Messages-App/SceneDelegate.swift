@@ -53,13 +53,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneDidEnterBackground(_ scene: UIScene) {
     }
 
-    private func myTestSignOut() {
-        do {
-            try Auth.auth().signOut()
-            UIWindow.key?.rootViewController = AuthViewController()
-            //                UIApplication.shared.keyWindow?.rootViewController = AuthViewController()
-        } catch {
-            print("[Error] sign out problem \(error.localizedDescription)")
-        }
-    }
+//    private func myTestSignOut() {
+//        do {
+//            try Auth.auth().signOut()
+//            UIWindow.key?.rootViewController = AuthViewController()
+//            //                UIApplication.shared.keyWindow?.rootViewController = AuthViewController()
+//        } catch {
+//            print("[Error] sign out problem \(error.localizedDescription)")
+//        }
+//    }
 }
