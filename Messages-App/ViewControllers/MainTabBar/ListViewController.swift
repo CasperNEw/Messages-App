@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FirebaseFirestore
+
 class ListViewController: UIViewController {
 
     enum Section: Int, CaseIterable {
@@ -23,7 +25,9 @@ class ListViewController: UIViewController {
     }
 
     let activeChats = [MChat]()
-    let waitingChats = [MChat]()
+    var waitingChats = [MChat]()
+
+    private var waitingChatsListener: ListenerRegistration?
 //    let activeChats = Bundle.main.decode([MChat].self, from: "activeChats.json")
 //    let waitingChats = Bundle.main.decode([MChat].self, from: "waitingChats.json")
 
@@ -85,6 +89,10 @@ class ListViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    deinit {
+        waitingChatsListener?.remove()
+    }
+
     // MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,6 +101,7 @@ class ListViewController: UIViewController {
         setupCollectionView()
         updateDataSource(with: nil)
         setupNavigationItem()
+        setupWaitingChatsListener()
     }
 
     private func setupSearchBar() {
@@ -113,6 +122,7 @@ class ListViewController: UIViewController {
         collectionView.register(SectionHeader.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: SectionHeader.reuseIdentifier)
+        collectionView.delegate = self
     }
 
     private func setupNavigationItem() {
@@ -120,6 +130,23 @@ class ListViewController: UIViewController {
         let titleAttributes = [NSAttributedString.Key.foregroundColor: UIColor.darkGray,
                                NSAttributedString.Key.font: UIFont.avenir20()]
         navigationController?.navigationBar.titleTextAttributes = titleAttributes as [NSAttributedString.Key: Any]
+    }
+
+    private func setupWaitingChatsListener() {
+        waitingChatsListener = ListenerService.shared.witingChatsObeserve(chats: waitingChats, completion: { (result) in
+            switch result {
+            case .success(let chats):
+                if let last = chats.last, self.waitingChats.count <= chats.count {
+                    let chatRequestVC = ChatRequestViewController(chat: last)
+                    chatRequestVC.delegate = self
+                    self.present(chatRequestVC, animated: true)
+                }
+                self.waitingChats = chats
+                self.updateDataSource(with: nil)
+            case .failure(let error):
+                self.showAlert(with: "Ошибка!", and: error.localizedDescription)
+            }
+        })
     }
 }
 
@@ -225,6 +252,41 @@ extension ListViewController: UISearchBarDelegate {
     }
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         updateDataSource(with: nil)
+    }
+}
+
+// MARK: UICollectionViewDelegate
+extension ListViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let chat = self.dataSource.itemIdentifier(for: indexPath) else { return }
+        guard let section = Section.init(rawValue: indexPath.section) else { return }
+
+        switch section {
+        case .waitingChats:
+            let chatRequestVC = ChatRequestViewController(chat: chat)
+            chatRequestVC.delegate = self
+            self.present(chatRequestVC, animated: true)
+        case .activeChats:
+            print(indexPath)
+        }
+    }
+}
+
+// MARK: WaitingChatsNavigation
+extension ListViewController: WaitingChatsNavigation {
+    func removeWaitingChat(chat: MChat) {
+        FirestoreService.shared.deleteWaitingChat(chat: chat) { (result) in
+            switch result {
+            case .success:
+                self.showAlert(with: "Успешно!", and: "Чат с \(chat.friendUsername) был удален!")
+            case .failure(let error):
+                self.showAlert(with: "Ошибка!", and: error.localizedDescription)
+            }
+        }
+    }
+
+    func changeToActive(chat: MChat) {
+        print(#function)
     }
 }
 

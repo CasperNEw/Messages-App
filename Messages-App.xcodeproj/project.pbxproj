@@ -13,6 +13,7 @@
 		DA11BE242434C6A200E41D94 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA11BE232434C6A200E41D94 /* Validator.swift */; };
 		DA11BE262434C94500E41D94 /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA11BE252434C94500E41D94 /* AuthError.swift */; };
 		DA2450BB2444A425001DE6BC /* MMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2450BA2444A425001DE6BC /* MMessage.swift */; };
+		DA2450BD244B0A82001DE6BC /* WaitingChatsNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2450BC244B0A81001DE6BC /* WaitingChatsNavigation.swift */; };
 		DA25C818242B01870005AB3C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA25C817242B01870005AB3C /* LoginViewController.swift */; };
 		DA25C81A242B09CC0005AB3C /* SetupProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA25C819242B09CC0005AB3C /* SetupProfileViewController.swift */; };
 		DA25C81C242B10A20005AB3C /* AddPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA25C81B242B10A20005AB3C /* AddPhotoView.swift */; };
@@ -71,6 +72,7 @@
 		DA11BE232434C6A200E41D94 /* Validator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
 		DA11BE252434C94500E41D94 /* AuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
 		DA2450BA2444A425001DE6BC /* MMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMessage.swift; sourceTree = "<group>"; };
+		DA2450BC244B0A81001DE6BC /* WaitingChatsNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitingChatsNavigation.swift; sourceTree = "<group>"; };
 		DA25C817242B01870005AB3C /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		DA25C819242B09CC0005AB3C /* SetupProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupProfileViewController.swift; sourceTree = "<group>"; };
 		DA25C81B242B10A20005AB3C /* AddPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoView.swift; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 			children = (
 				DA90ACFC242D14B1003E41B7 /* SelfConfiguringCell.swift */,
 				DAB2CDA3243B28D300E637D7 /* AuthNavigatingDelegate.swift */,
+				DA2450BC244B0A81001DE6BC /* WaitingChatsNavigation.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -524,6 +527,7 @@
 				DA11BE222434BA5A00E41D94 /* AuthService.swift in Sources */,
 				DA25C818242B01870005AB3C /* LoginViewController.swift in Sources */,
 				DA48D66C2429FC68001BA1CF /* UIColor+.swift in Sources */,
+				DA2450BD244B0A82001DE6BC /* WaitingChatsNavigation.swift in Sources */,
 				DAC5478D2444322F00E57F0A /* ListenerService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

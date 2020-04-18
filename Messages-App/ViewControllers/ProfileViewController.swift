@@ -114,25 +114,3 @@ extension ProfileViewController {
         ])
     }
 }
-
-/*
-// MARK: SwiftUI
-import SwiftUI
-
-struct ProfileVCProvider: PreviewProvider {
-    static var previews: some View {
-        ContainerView().edgesIgnoringSafeArea(.all)
-    }
-
-    struct ContainerView: UIViewControllerRepresentable {
-        let profileVC = ProfileViewController()
-        // swiftlint:disable line_length
-        func makeUIViewController(context: UIViewControllerRepresentableContext<ProfileVCProvider.ContainerView>) -> ProfileViewController {
-            return profileVC
-        }
-        func updateUIViewController(_ uiViewController: ProfileViewController, context: UIViewControllerRepresentableContext<ProfileVCProvider.ContainerView>) {
-        }
-        // swiftlint:enable line_length
-    }
-}
-*/

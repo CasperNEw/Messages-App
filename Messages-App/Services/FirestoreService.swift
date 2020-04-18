@@ -18,6 +18,11 @@ class FirestoreService {
         return database.collection("users")
     }
 
+    private var waitingChatsRef: CollectionReference? {
+        guard let currentUser = currentUser else { return nil }
+        return database.collection(["users", currentUser.userId, "waitingChats"].joined(separator: "/"))
+    }
+
     var currentUser: MUser?
 
     func getUserData(user: User, completion: @escaping (Result<MUser, Error>) -> Void) {
@@ -99,6 +104,58 @@ class FirestoreService {
                 }
                 completion(.success(Void()))
             }
+        }
+    }
+
+    func deleteWaitingChat(chat: MChat, completion: @escaping (Result<Void, Error>) -> Void) {
+        guard let waitingChatsRef = waitingChatsRef else { return }
+        waitingChatsRef.document(chat.friendId).delete { (error) in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            self.deleteMessages(chat: chat, completion: completion)
+        }
+    }
+
+    private func deleteMessages(chat: MChat, completion: @escaping (Result<Void, Error>) -> Void) {
+        guard let reference = waitingChatsRef?.document(chat.friendId).collection("messages") else { return }
+        getWaitingChatMessages(chat: chat) { (result) in
+            switch result {
+            case .success(let messages):
+                for message in messages {
+                    guard let documentId = message.messageId else { return }
+                    let messageRef = reference.document(documentId)
+                    messageRef.delete { (error) in
+                        if let error = error {
+                            completion(.failure(error))
+                        }
+                        completion(.success(Void()))
+                    }
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+
+    private func getWaitingChatMessages(chat: MChat, completion: @escaping (Result<[MMessage], Error>) -> Void) {
+        let reference = waitingChatsRef?.document(chat.friendId).collection("messages")
+        reference?.getDocuments { (querySnapshot, error) in
+            guard let querySnapshot = querySnapshot else {
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                return
+            }
+
+            var messages = [MMessage]()
+            for document in querySnapshot.documents {
+                guard let message = MMessage(document: document) else { return }
+                messages.append(message)
+            }
+            completion(.success(messages))
         }
     }
 }
