@@ -24,12 +24,11 @@ class ListViewController: UIViewController {
         }
     }
 
-    let activeChats = [MChat]()
+    var activeChats = [MChat]()
     var waitingChats = [MChat]()
 
     private var waitingChatsListener: ListenerRegistration?
-//    let activeChats = Bundle.main.decode([MChat].self, from: "activeChats.json")
-//    let waitingChats = Bundle.main.decode([MChat].self, from: "waitingChats.json")
+    private var activeChatsListener: ListenerRegistration?
 
     // MARK: Init Collection View
     lazy var collectionView: UICollectionView = {
@@ -91,6 +90,7 @@ class ListViewController: UIViewController {
 
     deinit {
         waitingChatsListener?.remove()
+        activeChatsListener?.remove()
     }
 
     // MARK: viewDidLoad
@@ -102,6 +102,7 @@ class ListViewController: UIViewController {
         updateDataSource(with: nil)
         setupNavigationItem()
         setupWaitingChatsListener()
+        setupActiveChatsListener()
     }
 
     private func setupSearchBar() {
@@ -142,6 +143,18 @@ class ListViewController: UIViewController {
                     self.present(chatRequestVC, animated: true)
                 }
                 self.waitingChats = chats
+                self.updateDataSource(with: nil)
+            case .failure(let error):
+                self.showAlert(with: "Ошибка!", and: error.localizedDescription)
+            }
+        })
+    }
+
+    private func setupActiveChatsListener() {
+        activeChatsListener = ListenerService.shared.activeChatsObeserve(chats: activeChats, completion: { (result) in
+            switch result {
+            case .success(let chats):
+                self.activeChats = chats
                 self.updateDataSource(with: nil)
             case .failure(let error):
                 self.showAlert(with: "Ошибка!", and: error.localizedDescription)
@@ -267,6 +280,7 @@ extension ListViewController: UICollectionViewDelegate {
             chatRequestVC.delegate = self
             self.present(chatRequestVC, animated: true)
         case .activeChats:
+            // TODO: present chat view controller
             print(indexPath)
         }
     }
@@ -286,7 +300,14 @@ extension ListViewController: WaitingChatsNavigation {
     }
 
     func changeToActive(chat: MChat) {
-        print(#function)
+        FirestoreService.shared.changeToActiveChat(chat: chat) { (result) in
+            switch result {
+            case .success:
+                self.showAlert(with: "Успешно!", and: "Приятного общения с \(chat.friendUsername)!")
+            case .failure(let error):
+                self.showAlert(with: "Ошибка!", and: error.localizedDescription)
+            }
+        }
     }
 }
 

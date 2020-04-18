@@ -23,6 +23,11 @@ class FirestoreService {
         return database.collection(["users", currentUser.userId, "waitingChats"].joined(separator: "/"))
     }
 
+    private var activeChatsRef: CollectionReference? {
+        guard let currentUser = currentUser else { return nil }
+        return database.collection(["users", currentUser.userId, "activeChats"].joined(separator: "/"))
+    }
+
     var currentUser: MUser?
 
     func getUserData(user: User, completion: @escaping (Result<MUser, Error>) -> Void) {
@@ -157,5 +162,50 @@ class FirestoreService {
             }
             completion(.success(messages))
         }
+    }
+
+    func changeToActiveChat(chat: MChat, completion: @escaping (Result<Void, Error>) -> Void) {
+        getWaitingChatMessages(chat: chat) { (result) in
+            switch result {
+            case .success(let messages):
+                self.deleteWaitingChat(chat: chat) { (result) in
+                    switch result {
+                    case .success:
+                        self.createActiveChat(chat: chat, messages: messages) { (result) in
+                            switch result {
+                            case .success:
+                                completion(.success(Void()))
+                            case .failure(let error):
+                                completion(.failure(error))
+                            }
+                        }
+                    case .failure(let error):
+                        completion(.failure(error))
+                    }
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+
+    private func createActiveChat(chat: MChat, messages: [MMessage],
+                                  completion: @escaping (Result<Void, Error>) -> Void) {
+        let messageRef = activeChatsRef?.document(chat.friendId).collection("messages")
+        activeChatsRef?.document(chat.friendId).setData(chat.representation, completion: { (error) in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            for message in messages {
+                messageRef?.addDocument(data: message.representation, completion: { (error) in
+                    if let error = error {
+                        completion(.failure(error))
+                        return
+                    }
+                    completion(.success(Void()))
+                })
+            }
+        })
     }
 }

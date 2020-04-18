@@ -33,7 +33,7 @@ class ActiveChatCell: UICollectionViewCell, SelfConfiguringCell {
         guard let chat = value as? MChat else { return }
         friendName.text = chat.friendUsername
         lastMessage.text = chat.lastMessage
-        friendImageView.image = UIImage(named: chat.friendAvatarPath)
+        friendImageView.sd_setImage(with: URL(string: chat.friendAvatarPath))
     }
 }
 
