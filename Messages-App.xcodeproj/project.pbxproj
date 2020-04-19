@@ -15,6 +15,7 @@
 		DA2450BB2444A425001DE6BC /* MMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2450BA2444A425001DE6BC /* MMessage.swift */; };
 		DA2450BD244B0A82001DE6BC /* WaitingChatsNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2450BC244B0A81001DE6BC /* WaitingChatsNavigation.swift */; };
 		DA2450BF244B30FE001DE6BC /* ChatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2450BE244B30FE001DE6BC /* ChatsViewController.swift */; };
+		DA2450C1244C19E0001DE6BC /* UIScrollView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2450C0244C19E0001DE6BC /* UIScrollView+.swift */; };
 		DA25C818242B01870005AB3C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA25C817242B01870005AB3C /* LoginViewController.swift */; };
 		DA25C81A242B09CC0005AB3C /* SetupProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA25C819242B09CC0005AB3C /* SetupProfileViewController.swift */; };
 		DA25C81C242B10A20005AB3C /* AddPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA25C81B242B10A20005AB3C /* AddPhotoView.swift */; };
@@ -75,6 +76,7 @@
 		DA2450BA2444A425001DE6BC /* MMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMessage.swift; sourceTree = "<group>"; };
 		DA2450BC244B0A81001DE6BC /* WaitingChatsNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitingChatsNavigation.swift; sourceTree = "<group>"; };
 		DA2450BE244B30FE001DE6BC /* ChatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsViewController.swift; sourceTree = "<group>"; };
+		DA2450C0244C19E0001DE6BC /* UIScrollView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+.swift"; sourceTree = "<group>"; };
 		DA25C817242B01870005AB3C /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		DA25C819242B09CC0005AB3C /* SetupProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupProfileViewController.swift; sourceTree = "<group>"; };
 		DA25C81B242B10A20005AB3C /* AddPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoView.swift; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 				DAB2CDA12439B0FD00E637D7 /* UIWindow+.swift */,
 				DAB2CDA5243B2FDF00E637D7 /* UIApplication+.swift */,
 				DAB2CDA9243B550400E637D7 /* UIImage+.swift */,
+				DA2450C0244C19E0001DE6BC /* UIScrollView+.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -517,6 +520,7 @@
 				DA48D66A2429FB54001BA1CF /* UIFont+.swift in Sources */,
 				DA25C81C242B10A20005AB3C /* AddPhotoView.swift in Sources */,
 				DAB2CDAA243B550400E637D7 /* UIImage+.swift in Sources */,
+				DA2450C1244C19E0001DE6BC /* UIScrollView+.swift in Sources */,
 				DA90AD0C242DBA69003E41B7 /* UserCell.swift in Sources */,
 				DAB2CDAC243B5B7500E637D7 /* StorageError.swift in Sources */,
 				DAE6445C2429D1810001467C /* SceneDelegate.swift in Sources */,

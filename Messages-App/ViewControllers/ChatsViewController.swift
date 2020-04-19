@@ -9,12 +9,15 @@
 import UIKit
 import MessageKit
 import InputBarAccessoryView
+import FirebaseFirestore
 
 class ChatsViewController: MessagesViewController {
 
     private let user: MUser
     private let chat: MChat
     private var messages: [MMessage] = []
+
+    private var messageListener: ListenerRegistration?
 
     init(user: MUser, chat: MChat) {
         self.user = user
@@ -26,12 +29,17 @@ class ChatsViewController: MessagesViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    deinit {
+        messageListener?.remove()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupNavigationItem()
         configureMessageInputBar()
         configureMessagesCollectionView()
+        setupMessageListener()
     }
 
      private func setupNavigationItem() {
@@ -44,7 +52,16 @@ class ChatsViewController: MessagesViewController {
         messages.append(message)
         messages.sort()
 
+        let isLatestMessage = messages.firstIndex(of: message) == messages.count - 1
+        let shouldScrollToBottom = messagesCollectionView.isAtBottom && isLatestMessage
+
         messagesCollectionView.reloadData()
+
+        if shouldScrollToBottom {
+            DispatchQueue.main.async {
+                self.messagesCollectionView.scrollToBottom(animated: true)
+            }
+        }
     }
 
     private func configureMessagesCollectionView() {
@@ -59,6 +76,17 @@ class ChatsViewController: MessagesViewController {
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
+    }
+
+    private func setupMessageListener() {
+        messageListener = ListenerService.shared.messagesObserve(chat: chat, completion: { (result) in
+            switch result {
+            case .success(let message):
+                self.insertNewMessage(message: message)
+            case .failure(let error):
+                self.showAlert(with: "Ошибка!", and: error.localizedDescription)
+            }
+        })
     }
 }
 
@@ -114,12 +142,31 @@ extension ChatsViewController: MessagesDataSource {
     func numberOfSections(in messagesCollectionView: MessagesCollectionView) -> Int {
         return 1
     }
+
+    func cellTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
+        if indexPath.item % 4 == 0 {
+            return NSAttributedString(string: MessageKitDateFormatter.shared.string(from: message.sentDate),
+                                      attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 10),
+                                                   NSAttributedString.Key.foregroundColor: UIColor.darkGray])
+        } else {
+            return nil
+        }
+    }
 }
 
 // MARK: MessagesLayoutDelegate
 extension ChatsViewController: MessagesLayoutDelegate {
     func footerViewSize(for section: Int, in messagesCollectionView: MessagesCollectionView) -> CGSize {
         return CGSize(width: 0, height: 8)
+    }
+    func cellTopLabelHeight(for message: MessageType,
+                            at indexPath: IndexPath,
+                            in messagesCollectionView: MessagesCollectionView) -> CGFloat {
+        if indexPath.item % 4 == 0 {
+            return 30
+        } else {
+            return 0
+        }
     }
 }
 
@@ -151,7 +198,14 @@ extension ChatsViewController: MessagesDisplayDelegate {
 extension ChatsViewController: InputBarAccessoryViewDelegate {
     func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
         let message = MMessage(user: user, content: text)
-        insertNewMessage(message: message)
+        FirestoreService.shared.sendMessage(chat: chat, message: message) { (result) in
+            switch result {
+            case .success:
+                self.messagesCollectionView.scrollToBottom()
+            case .failure(let error):
+                self.showAlert(with: "Ошибка!", and: error.localizedDescription)
+            }
+        }
         inputBar.inputTextView.text = ""
     }
 }
