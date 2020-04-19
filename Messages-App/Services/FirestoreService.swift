@@ -129,8 +129,7 @@ class FirestoreService {
             switch result {
             case .success(let messages):
                 for message in messages {
-                    guard let documentId = message.messageId else { return }
-                    let messageRef = reference.document(documentId)
+                    let messageRef = reference.document(message.messageId)
                     messageRef.delete { (error) in
                         if let error = error {
                             completion(.failure(error))

@@ -81,7 +81,6 @@ class ListViewController: UIViewController {
     init(currentUser: MUser) {
         self.currentUser = currentUser
         super.init(nibName: nil, bundle: nil)
-//        title = currentUser.username
     }
 
     required init?(coder: NSCoder) {
@@ -100,7 +99,6 @@ class ListViewController: UIViewController {
         setupSearchBar()
         setupCollectionView()
         updateDataSource(with: nil)
-        setupNavigationItem()
         setupWaitingChatsListener()
         setupActiveChatsListener()
     }
@@ -131,6 +129,10 @@ class ListViewController: UIViewController {
         let titleAttributes = [NSAttributedString.Key.foregroundColor: UIColor.darkGray,
                                NSAttributedString.Key.font: UIFont.avenir20()]
         navigationController?.navigationBar.titleTextAttributes = titleAttributes as [NSAttributedString.Key: Any]
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        setupNavigationItem()
     }
 
     private func setupWaitingChatsListener() {
@@ -280,8 +282,9 @@ extension ListViewController: UICollectionViewDelegate {
             chatRequestVC.delegate = self
             self.present(chatRequestVC, animated: true)
         case .activeChats:
-            // TODO: present chat view controller
-            print(indexPath)
+            let chatsVC = ChatsViewController(user: currentUser, chat: chat)
+            navigationItem.title = ""
+            navigationController?.pushViewController(chatsVC, animated: true)
         }
     }
 }

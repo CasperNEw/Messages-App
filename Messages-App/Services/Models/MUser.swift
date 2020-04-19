@@ -8,8 +8,9 @@
 
 import UIKit
 import FirebaseFirestore
+import MessageKit
 
-struct MUser: Hashable, Decodable {
+struct MUser: Hashable, Decodable, SenderType {
 
     var userId: String
     var username: String
@@ -17,6 +18,9 @@ struct MUser: Hashable, Decodable {
     var avatarPath: String
     var description: String
     var sex: String
+
+    var senderId: String { return userId }
+    var displayName: String { return username }
 
     init(userId: String, username: String, email: String, avatarPath: String, description: String, sex: String) {
         self.userId = userId
@@ -83,5 +87,16 @@ struct MUser: Hashable, Decodable {
         guard let filter = filter else { return true }
         if filter.isEmpty { return true }
         return username.lowercased().contains(filter.lowercased())
+    }
+}
+
+//альтернатива Sender из MessageKit pod, реализована в MMessage init?(QueryDocumentSnapshot)
+struct MUserSType: SenderType {
+    var senderId: String
+    var displayName: String
+
+    init(senderId: String, displayName: String) {
+        self.senderId = senderId
+        self.displayName = displayName
     }
 }

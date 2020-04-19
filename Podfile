@@ -11,6 +11,7 @@ pod 'Firebase/Firestore'
 pod 'GoogleSignIn'
 pod 'Firebase/Storage'
 pod 'SDWebImage', '~> 5.0'
+pod 'MessageKit'
   # Pods for Messages-App
 
 end
