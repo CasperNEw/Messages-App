@@ -9,11 +9,25 @@
 import UIKit
 
 class MainTabBarController: UITabBarController {
+
+    private let currentUser: MUser
+
+    init(currentUser: MUser = MUser(userId: "Special", username: "entity",
+                                    email: "for", avatarPath: "SwiftUI",
+                                    description: "canvas", sex: "view")) {
+        self.currentUser = currentUser
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let listVuewController = ListViewController()
-        let peopleViewController = PeopleViewController()
+        let listVuewController = ListViewController(currentUser: currentUser)
+        let peopleViewController = PeopleViewController(currentUser: currentUser)
 
         tabBar.tintColor = #colorLiteral(red: 0.5568627451, green: 0.3529411765, blue: 0.968627451, alpha: 1)
         let boldConfig = UIImage.SymbolConfiguration(weight: .medium)
@@ -22,15 +36,14 @@ class MainTabBarController: UITabBarController {
             let convImage = UIImage(systemName: "bubble.left.and.bubble.right",
                                     withConfiguration: boldConfig) else { return }
 
-        viewControllers = [generateNavigationController(rootVC: peopleViewController,
-                                                        title: "People", image: peopleImage),
-                           generateNavigationController(rootVC: listVuewController,
-                                                        title: "Conversation", image: convImage)]
 //        viewControllers = [generateNavigationController(rootVC: listVuewController,
 //                                                        title: "Conversation", image: convImage),
 //                           generateNavigationController(rootVC: peopleViewController,
 //                                                        title: "People", image: peopleImage)]
-
+        viewControllers = [generateNavigationController(rootVC: peopleViewController,
+                                                        title: "People", image: peopleImage),
+                           generateNavigationController(rootVC: listVuewController,
+                                                        title: "Conversation", image: convImage)]
     }
 
     private func generateNavigationController(rootVC: UIViewController,

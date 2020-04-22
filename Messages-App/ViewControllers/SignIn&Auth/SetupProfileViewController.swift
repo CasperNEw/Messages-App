@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FirebaseAuth
+import SDWebImage
 
 class SetupProfileViewController: UIViewController {
 
@@ -23,10 +25,59 @@ class SetupProfileViewController: UIViewController {
     let fullNameTextField = OneLineTextField(font: .avenir20())
     let aboutMeTextField = OneLineTextField(font: .avenir20())
 
+    private let currentUser: User
+
+    init(currentUser: User) {
+        self.currentUser = currentUser
+        super.init(nibName: nil, bundle: nil)
+
+        if let username = currentUser.displayName {
+            fullNameTextField.text = username
+        }
+        fullImageView.circleImageView.sd_setImage(with: currentUser.photoURL)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         setupConstraints()
+
+        goToChatsButton.addTarget(self, action: #selector(goToChatsButtonTapped), for: .touchUpInside)
+        fullImageView.plusButton.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
+    }
+
+    @objc private func goToChatsButtonTapped() {
+
+        guard let email = currentUser.email else {
+            self.showAlert(with: "Ошибка!", and: "Непредвиденная ошибка в работе приложения!")
+            return
+        }
+        FirestoreService.shared.saveProfile(
+            userId: currentUser.uid, username: fullNameTextField.text,
+            email: email, avatarImage: fullImageView.circleImageView.image, description: aboutMeTextField.text,
+            sex: sexSegmentedControl.titleForSegment(at: sexSegmentedControl.selectedSegmentIndex)) { (result) in
+                switch result {
+                case .success(let mUser):
+                    self.showAlert(with: "Успешно!", and: "Приятного общения!", completion: {
+                        let mainTabBar = MainTabBarController(currentUser: mUser)
+                        mainTabBar.modalPresentationStyle = .fullScreen
+                        self.present(mainTabBar, animated: true, completion: nil)
+                    })
+                case .failure(let error):
+                    self.showAlert(with: "Ошибка!", and: error.localizedDescription)
+                }
+        }
+    }
+
+    @objc private func plusButtonTapped() {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        imagePickerController.sourceType = .photoLibrary
+        present(imagePickerController, animated: true)
     }
 }
 
@@ -68,24 +119,33 @@ extension SetupProfileViewController {
     }
 }
 
+// MARK: UIImagePickerControllerDelegate & UINavigationControllerDelegate
+extension SetupProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+
+        picker.dismiss(animated: true, completion: nil)
+        guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else { return }
+        fullImageView.circleImageView.image = image
+    }
+}
+
 // MARK: SwiftUI
-// Добавляем реализацию отображения нашего View через Canvas (alt+cmd+P, refresh combination)
 import SwiftUI
 
 struct SetupProfileVCProvider: PreviewProvider {
     static var previews: some View {
-        // добавляем к нашему контейнеру метод игнорирования SafeArea, для адекватного, красивого, отображения
         ContainerView().edgesIgnoringSafeArea(.all)
     }
 
     struct ContainerView: UIViewControllerRepresentable {
-        let setupProfileVC = SetupProfileViewController()
+        let setupProfileVC = SetupProfileViewController(currentUser: Auth.auth().currentUser!)
         // swiftlint:disable line_length
         func makeUIViewController(context: UIViewControllerRepresentableContext<SetupProfileVCProvider.ContainerView>) -> SetupProfileViewController {
             return setupProfileVC
         }
         func updateUIViewController(_ uiViewController: SetupProfileViewController, context: UIViewControllerRepresentableContext<SetupProfileVCProvider.ContainerView>) {
         }
-        // swiftlint:enable line_lenght
+        // swiftlint:enable line_length
     }
 }

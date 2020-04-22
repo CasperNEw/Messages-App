@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GoogleSignIn
 
 class LoginViewController: UIViewController {
 
@@ -25,11 +26,54 @@ class LoginViewController: UIViewController {
     let emailTextField = OneLineTextField(font: .avenir20())
     let passwordTextField = OneLineTextField(font: .avenir20())
 
+    weak var delegate: AuthNavigatingDelegate?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         googleButton.addLogo(image: #imageLiteral(resourceName: "googleLogo"), leading: 24)
         setupConstraints()
+
+        googleButton.addTarget(self, action: #selector(googleButtonTapped), for: .touchUpInside)
+        loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
+        signUpButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
+    }
+
+    @objc func googleButtonTapped() {
+        print(#function)
+        GIDSignIn.sharedInstance()?.presentingViewController = self
+        GIDSignIn.sharedInstance().signIn()
+    }
+
+    @objc func loginButtonTapped() {
+        print(#function)
+        AuthService.shared.login(email: emailTextField.text!,
+                                 password: passwordTextField.text!) { (result) in
+                                    switch result {
+                                    case .success(let user):
+                                        self.showAlert(with: "Успешно!", and: "Вы авторизированы!") {
+                                            FirestoreService.shared.getUserData(user: user) { (result) in
+                                                switch result {
+                                                case .success(let mUser):
+                                                    let mainTabBar = MainTabBarController(currentUser: mUser)
+                                                    mainTabBar.modalPresentationStyle = .fullScreen
+                                                    self.present(mainTabBar, animated: true, completion: nil)
+                                                case .failure(let error):
+                                                    self.present(SetupProfileViewController(currentUser: user),
+                                                                 animated: true, completion: nil)
+                                                    print("[Error] \(error.localizedDescription)")
+                                                }
+                                            }
+                                        }
+                                    case .failure(let error):
+                                        self.showAlert(with: "Damn!", and: error.localizedDescription)
+                                    }
+        }
+    }
+    @objc func signUpButtonTapped() {
+        dismiss(animated: true) {
+            self.delegate?.toSignUpVC()
+        }
     }
 }
 
@@ -66,20 +110,19 @@ extension LoginViewController {
             stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
             stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
 
-            bottomStackView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 70),
-            bottomStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40)
+            bottomStackView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 20),
+            bottomStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
+            bottomStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40)
         ])
 
     }
 }
 
 // MARK: SwiftUI
-// Добавляем реализацию отображения нашего View через Canvas (alt+cmd+P, refresh combination)
 import SwiftUI
 
 struct LoginVCProvider: PreviewProvider {
     static var previews: some View {
-        // добавляем к нашему контейнеру метод игнорирования SafeArea, для адекватного, красивого, отображения
         ContainerView().edgesIgnoringSafeArea(.all)
     }
 
@@ -91,6 +134,6 @@ struct LoginVCProvider: PreviewProvider {
         }
         func updateUIViewController(_ uiViewController: LoginViewController, context: UIViewControllerRepresentableContext<LoginVCProvider.ContainerView>) {
         }
-        // swiftlint:enable line_lenght
+        // swiftlint:enable line_length
     }
 }

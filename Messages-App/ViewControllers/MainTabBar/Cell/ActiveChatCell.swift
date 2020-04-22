@@ -31,9 +31,9 @@ class ActiveChatCell: UICollectionViewCell, SelfConfiguringCell {
 
     func configure<U>(with value: U) where U: Hashable {
         guard let chat = value as? MChat else { return }
-        friendName.text = chat.username
+        friendName.text = chat.friendUsername
         lastMessage.text = chat.lastMessage
-        friendImageView.image = UIImage(named: chat.userImageString)
+        friendImageView.sd_setImage(with: URL(string: chat.friendAvatarPath))
     }
 }
 
@@ -93,6 +93,6 @@ struct ActiveChatProvider: PreviewProvider {
         }
         func updateUIViewController(_ uiViewController: ActiveChatProvider.ContainerView.UIViewControllerType, context: UIViewControllerRepresentableContext<ActiveChatProvider.ContainerView>) {
         }
-        // swiftlint:enable line_lenght
+        // swiftlint:enable line_length
     }
 }

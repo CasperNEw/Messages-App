@@ -1,52 +1,52 @@
 [
     {
         "username": "Bob River",
-        "avatarStringURL": "human1",
-        "identifier": 1
+        "avatarPath": "human1",
+        "userId": 1
     },
     {
         "username": "John Black",
-        "avatarStringURL": "human2",
-        "identifier": 2
+        "avatarPath": "human2",
+        "userId": 2
     },
     {
         "username": "Misha Red",
-        "avatarStringURL": "human3",
-        "identifier": 3
+        "avatarPath": "human3",
+        "userId": 3
     },
     {
         "username": "Alex Film",
-        "avatarStringURL": "human4",
-        "identifier": 4
+        "avatarPath": "human4",
+        "userId": 4
     },
     {
         "username": "Robert Martin",
-        "avatarStringURL": "human5",
-        "identifier": 5
+        "avatarPath": "human5",
+        "userId": 5
     },
     {
         "username": "Peter Brown",
-        "avatarStringURL": "human6",
-        "identifier": 6
+        "avatarPath": "human6",
+        "userId": 6
     },
     {
         "username": "Sarah White",
-        "avatarStringURL": "human7",
-        "identifier": 7
+        "avatarPath": "human7",
+        "userId": 7
     },
     {
         "username": "Melven Strong",
-        "avatarStringURL": "human8",
-        "identifier": 8
+        "avatarPath": "human8",
+        "userId": 8
     },
     {
         "username": "Nike Rose",
-        "avatarStringURL": "human9",
-        "identifier": 9
+        "avatarPath": "human9",
+        "userId": 9
     },
     {
         "username": "Andrey Velvet",
-        "avatarStringURL": "human10",
-        "identifier": 10
+        "avatarPath": "human10",
+        "userId": 10
     }
 ]

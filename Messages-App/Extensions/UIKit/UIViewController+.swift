@@ -15,10 +15,18 @@ extension UIViewController {
                                                         for indexPath: IndexPath) -> T {
          guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: T.reuseIdentifier,
                                                              for: indexPath) as? T else {
-                                                                 // TODO: q?
                                                                  fatalError("Unable to dequeue \(cellType)")
          }
          cell.configure(with: value)
          return cell
      }
+
+    func showAlert(with title: String, and message: String, completion: @escaping () -> Void = { }) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default) { (_) in
+            completion()
+        }
+        alertController.addAction(action)
+        present(alertController, animated: true, completion: nil)
+    }
 }

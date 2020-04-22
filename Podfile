@@ -5,6 +5,13 @@ target 'Messages-App' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 pod 'SwiftLint'
+pod 'Firebase/Analytics'
+pod 'Firebase/Auth'
+pod 'Firebase/Firestore'
+pod 'GoogleSignIn'
+pod 'Firebase/Storage'
+pod 'SDWebImage', '~> 5.0'
+pod 'MessageKit'
   # Pods for Messages-App
 
 end

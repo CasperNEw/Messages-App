@@ -23,7 +23,7 @@ class WaitingChatCell: UICollectionViewCell, SelfConfiguringCell {
 
     func configure<U>(with value: U) where U: Hashable {
         guard let chat = value as? MChat else { return }
-        friendImageView.image = UIImage(named: chat.userImageString)
+        friendImageView.sd_setImage(with: URL(string: chat.friendAvatarPath))
     }
 
     required init?(coder: NSCoder) {
@@ -65,6 +65,6 @@ struct WaitingChatProvider: PreviewProvider {
         }
         func updateUIViewController(_ uiViewController: WaitingChatProvider.ContainerView.UIViewControllerType, context: UIViewControllerRepresentableContext<WaitingChatProvider.ContainerView>) {
         }
-        // swiftlint:enable line_lenght
+        // swiftlint:enable line_length
     }
 }
